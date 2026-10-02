@@ -664,7 +664,7 @@ body.splash-locked { overflow: hidden; }
 }
 @media (max-width: 880px) { .contact-grid { grid-template-columns: 1fr; } }
 
-.detail-list { display: flex; flex-direction: column; gap: 1.4rem; margin-top: 1.5rem; }
+.detail-list { display: flex; flex-direction: column; gap: 1.12rem; margin: 1.5rem 0 0; line-height: 1.28; } /* 20% tighter than 1.4rem / 1.6 */
 .detail-list dt {
   font-family: var(--font-display);
   font-size: 0.8rem;
@@ -679,7 +679,7 @@ body.splash-locked { overflow: hidden; }
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  margin-top: 1.5rem;
+  margin-top: 0.35rem;
   font-family: var(--font-display);
   font-size: 0.9rem;
   color: var(--teal-dark);
