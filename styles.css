@@ -183,7 +183,7 @@ body.splash-locked { overflow: hidden; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 168px;
+  height: 101px; /* was 168px, −40% */
 }
 .brand {
   display: flex;
@@ -192,7 +192,7 @@ body.splash-locked { overflow: hidden; }
   color: var(--ink);
 }
 .brand .logo-mark {
-  height: 116px;
+  height: 70px; /* was 116px, −40% */
   width: auto;
   display: block;
 }
@@ -405,7 +405,7 @@ body.splash-locked { overflow: hidden; }
   .nav-toggle { display: block; }
   .site-nav {
     position: fixed;
-    inset: 168px 0 0 0;
+    inset: 106px 0 0 0;
     background: var(--paper);
     flex-direction: column;
     align-items: flex-start;
@@ -534,7 +534,7 @@ body.splash-locked { overflow: hidden; }
   gap: 2rem;
   padding: 1.8rem 0;
   border-top: 1px solid var(--line);
-  scroll-margin-top: 190px;
+  scroll-margin-top: 124px;
 }
 .group-item:last-child { border-bottom: 1px solid var(--line); }
 .group-item h3 { font-size: 1.05rem; margin: 0; }
@@ -859,7 +859,7 @@ body.has-depth-bg { position: relative; background: transparent; }
 
 .page-bg-render {
   position: absolute;
-  top: 168px;
+  top: 106px;
   left: 0;
   width: 100%;
   height: 1000px;
@@ -900,7 +900,7 @@ body.has-depth-bg .site-header {
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
-  scroll-margin-top: 190px;
+  scroll-margin-top: 124px;
 }
 .category-card .card-text { flex: 1; min-width: 0; }
 .category-card .ref {
@@ -1198,9 +1198,9 @@ body.has-depth-bg .site-header {
 
   .site-nav {
     position: fixed;
-    top: var(--mnav-top, 173px);
+    top: var(--mnav-top, 106px);
     left: 0; right: 0; bottom: 0;
-    inset: var(--mnav-top, 173px) 0 0 0;
+    inset: var(--mnav-top, 106px) 0 0 0;
     background: #fff;
     display: flex;
     flex-direction: column;
