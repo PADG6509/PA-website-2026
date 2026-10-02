@@ -196,6 +196,11 @@ body.splash-locked { overflow: hidden; }
   width: auto;
   display: block;
 }
+/* Desktop: keep the logo at its original size inside the lower header.
+   The SVG has generous transparent padding, so the visible wordmark fits. */
+@media (min-width: 781px) {
+  .brand .logo-mark { height: 116px; margin: -8px 0; }
+}
 .brand small {
   display: block;
   font-family: var(--font-body);
