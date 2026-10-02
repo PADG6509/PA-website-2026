@@ -56,9 +56,52 @@
     var navToggle = document.getElementById("nav-toggle");
     var nav = document.getElementById("site-nav");
     if (navToggle && nav) {
+      // Mobile menu: start the panel right under the header, lock page scroll
+      // while open, and add a small contact strip at the bottom of the panel.
+      var header = document.querySelector(".site-header");
+      if (!nav.querySelector(".mnav-contact")) {
+        var mc = document.createElement("div");
+        mc.className = "mnav-contact";
+        mc.innerHTML = '<a href="mailto:proanalytica@proanalytica.com">proanalytica@proanalytica.com</a>' +
+                       '<a href="tel:+381113130542">+381 11 313 0542</a>';
+        nav.appendChild(mc);
+      }
+      // Mark the product category the current page belongs to
+      // (product-chemicals*.html, product-furniture*.html, product-equipment*.html).
+      var page = location.pathname.split("/").pop() || "index.html";
+      nav.querySelectorAll(".mega-col").forEach(function (col) {
+        var t = col.querySelector(".mega-col-title");
+        if (!t) return;
+        var base = (t.getAttribute("href") || "").split("?")[0].replace(".html", "");
+        if (base && (page === base + ".html" || page.indexOf(base + "-") === 0)) col.classList.add("is-current");
+
+        // Mobile accordion: a chevron button that shows/hides the subcategories.
+        // The current category starts expanded. (The button is hidden on desktop.)
+        var sub = col.querySelector("ul");
+        if (!sub || col.querySelector(".mcol-toggle")) return;
+        var tg = document.createElement("button");
+        tg.type = "button";
+        tg.className = "mcol-toggle";
+        tg.setAttribute("aria-label", "Podkategorije");
+        tg.innerHTML = '<svg width="14" height="9" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        t.insertAdjacentElement("afterend", tg);
+        if (col.classList.contains("is-current")) col.classList.add("is-expanded");
+        tg.setAttribute("aria-expanded", String(col.classList.contains("is-expanded")));
+        tg.addEventListener("click", function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          var ex = col.classList.toggle("is-expanded");
+          tg.setAttribute("aria-expanded", String(ex));
+        });
+        sub.querySelectorAll("a").forEach(function (a) {
+          if ((a.getAttribute("href") || "").split("?")[0] === page) a.classList.add("is-current");
+        });
+      });
       navToggle.addEventListener("click", function () {
+        if (header) nav.style.setProperty("--mnav-top", header.getBoundingClientRect().bottom + "px");
         var open = nav.classList.toggle("is-open");
         navToggle.setAttribute("aria-expanded", String(open));
+        document.body.classList.toggle("nav-open", open);
       });
     }
 

@@ -1181,3 +1181,175 @@ body.has-depth-bg .site-header {
   z-index: 1;
 }
 .pdf-lightbox .gallery-close:hover { color: var(--teal-dark); }
+
+/* =========================================================
+   Mobile menu (≤780px) — full-screen white panel with flat
+   rounded tiles, modeled on the deSignare mobile menu.
+   ========================================================= */
+@media (max-width: 780px) {
+  /* backdrop-filter on the header turns it into the containing block for the
+     fixed-position nav, which collapsed the menu to zero height. Drop it on mobile. */
+  .site-header {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: #fff;
+  }
+  body.nav-open { overflow: hidden; }
+
+  .site-nav {
+    position: fixed;
+    top: var(--mnav-top, 173px);
+    left: 0; right: 0; bottom: 0;
+    inset: var(--mnav-top, 173px) 0 0 0;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.9rem;
+    padding: 1.2rem var(--gutter) 1.4rem;
+    overflow-y: auto;
+    z-index: 60;
+  }
+  .site-nav > ul {
+    flex-direction: column;
+    gap: 0.6rem;
+    width: 100%;
+  }
+  .site-nav > ul > li { width: 100%; }
+
+  /* Tiles */
+  .site-nav > ul > li > a,
+  .site-nav .dropdown-toggle,
+  .site-nav .nav-highlight {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.95rem 1.2rem !important;
+    border: none !important;
+    border-radius: 14px !important;
+    background: var(--panel) !important;
+    color: var(--ink) !important;
+    font-family: var(--font-display);
+    font-size: 1.35rem !important;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    margin: 0 !important;
+    transform: none !important;
+  }
+  .site-nav > ul > li > a[aria-current="page"],
+  .site-nav .dropdown-toggle[aria-current="page"] {
+    background: var(--ink) !important;
+    color: #fff !important;
+  }
+  .site-nav .nav-highlight { background: var(--purple-60) !important; color: #fff !important; }
+  .site-nav .nav-highlight[aria-current="page"] { background: var(--purple-80) !important; }
+  .site-nav .dropdown-toggle .caret { display: none; }
+
+  /* Products: three category sub-tiles (always visible), with their category colour */
+  .site-nav .dropdown-menu {
+    display: grid !important;
+    position: static;
+    transform: none;
+    width: 100%;
+    max-width: none;
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+    padding: 0.45rem 0 0.1rem 1rem;
+    margin: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
+  .site-nav .mega-col { position: relative; }
+  .site-nav .mega-col ul { display: none; }
+  .site-nav .mega-col.is-expanded ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0.35rem 0 0.4rem 0.9rem;
+  }
+  .site-nav .mega-col.is-expanded ul li a {
+    display: block;
+    margin: 0;
+    padding: 0.55rem 0.8rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: var(--ink-soft);
+  }
+  .site-nav .mega-col:nth-child(1) ul li a.is-current { background: var(--amber-30); color: var(--ink); font-weight: 600; }
+  .site-nav .mega-col:nth-child(2) ul li a.is-current { background: var(--teal-30);  color: var(--ink); font-weight: 600; }
+  .site-nav .mega-col:nth-child(3) ul li a.is-current { background: var(--purple-30); color: var(--ink); font-weight: 600; }
+  .site-nav .mega-col-title { padding-right: 3.4rem !important; }
+  .mcol-toggle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 3.2rem;
+    height: 2.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .mcol-toggle svg { transition: transform 0.18s ease; }
+  .mega-col.is-expanded > .mcol-toggle svg { transform: rotate(180deg); }
+  .site-nav .mega-col-title {
+    display: block;
+    margin: 0;
+    padding: 0.7rem 1rem;
+    border: none;
+    border-left: 4px solid var(--teal);
+    border-radius: 10px;
+    background: var(--panel);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .site-nav .mega-col:nth-child(1) .mega-col-title { border-left-color: var(--amber); }
+  .site-nav .mega-col:nth-child(2) .mega-col-title { border-left-color: var(--teal); }
+  .site-nav .mega-col:nth-child(3) .mega-col-title { border-left-color: var(--purple); }
+  /* Category of the current page: tile filled with its colour at 30% */
+  .site-nav .mega-col.is-current .mega-col-title { font-weight: 700; }
+  .site-nav .mega-col:nth-child(1).is-current .mega-col-title { background: var(--amber-30); }
+  .site-nav .mega-col:nth-child(2).is-current .mega-col-title { background: var(--teal-30); }
+  .site-nav .mega-col:nth-child(3).is-current .mega-col-title { background: var(--purple-30); }
+
+  .site-nav > * { flex-shrink: 0; }
+  .site-nav .lang-toggle { margin: 0.2rem 0 0 0.2rem; width: 40px; height: 29px; }
+
+  /* Contact strip at the bottom of the menu (injected by script.js) */
+  .mnav-contact {
+    margin-top: auto;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 1rem;
+  }
+  .mnav-contact a { text-decoration: none; color: var(--ink-soft); }
+  .mnav-contact a:first-child { color: var(--teal-dark); font-weight: 600; }
+
+  /* Burger → round button, turns into × when open */
+  .nav-toggle {
+    width: 54px;
+    height: 54px;
+    border-radius: 999px;
+    border: 1px solid var(--line) !important;
+    background: #fff !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+  .nav-toggle[aria-expanded="true"] span { background: transparent; }
+  .nav-toggle[aria-expanded="true"] span::before { top: 0; transform: rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span::after { top: 0; transform: rotate(-45deg); }
+}
+@media (min-width: 781px) { .mnav-contact, .mcol-toggle { display: none; } }
