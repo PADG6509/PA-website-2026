@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;0,800;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=35">
+<link rel="stylesheet" href="styles.css?v=36">
 </head>
 <body>
 
@@ -79,6 +79,7 @@
          data-sr="Hronološki pregled seminara, radionica i dana otvorenih vrata koje organizujemo u našoj demo laboratoriji u Zemunu — rad uživo sa instrumentima, ne samo prezentacije o njima.">
         A running record of the seminars, workshops and open days we host at our demo laboratory in Zemun — hands-on sessions with the instruments themselves, not just slides about them.
       </p>
+      <button type="button" class="btn-catalog btn-video video-btn" data-video="1zfIuULBb4E" data-en="Watch the video" data-sr="Pogledajte video">Watch the video</button>
       </div>
     </div>
   </section>
@@ -189,6 +190,15 @@
 </main>
 
 <!-- Gallery lightbox -->
+<!-- YouTube video lightbox -->
+<div class="video-lightbox" id="video-lightbox" aria-hidden="true">
+  <button type="button" class="gallery-close" id="video-close" aria-label="Close video">&times;</button>
+  <div class="video-lightbox-inner">
+    <iframe id="video-frame" class="video-frame" src="" title="Proanalytica DEMOLAB video"
+            allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
+  </div>
+</div>
+
 <div class="gallery-lightbox" id="gallery-lightbox" aria-hidden="true">
   <div class="gallery-lightbox-inner">
     <button type="button" class="gallery-close" id="gallery-close" aria-label="Close gallery">&times;</button>
@@ -234,6 +244,6 @@
 </footer>
 
 <script src="assets/vendor/rellax.min.js"></script>
-<script src="script.js?v=23"></script>
+<script src="script.js?v=24"></script>
 </body>
 </html>

@@ -228,6 +228,40 @@
       });
     }
 
+    // YouTube video lightbox: any button with class "video-btn" and a
+    // data-video="<YouTube ID>" attribute plays that video in an overlay.
+    // Closes on the X, on Escape, or on a click anywhere outside the video.
+    var videoBtns = document.querySelectorAll(".video-btn");
+    if (videoBtns.length) {
+      var videoLightbox = document.getElementById("video-lightbox");
+      var videoFrame = document.getElementById("video-frame");
+      var videoClose = document.getElementById("video-close");
+
+      function openVideo(id) {
+        videoFrame.setAttribute("src", "https://www.youtube-nocookie.com/embed/" + id + "?autoplay=1&rel=0");
+        videoLightbox.classList.add("is-open");
+        videoLightbox.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+      }
+      function closeVideo() {
+        videoLightbox.classList.remove("is-open");
+        videoLightbox.setAttribute("aria-hidden", "true");
+        videoFrame.setAttribute("src", ""); // stops playback
+        document.body.style.overflow = "";
+      }
+
+      videoBtns.forEach(function (btn) {
+        btn.addEventListener("click", function () { openVideo(btn.getAttribute("data-video")); });
+      });
+      videoClose.addEventListener("click", closeVideo);
+      videoLightbox.addEventListener("click", function (e) {
+        if (e.target === videoLightbox) closeVideo();
+      });
+      document.addEventListener("keydown", function (e) {
+        if (videoLightbox.classList.contains("is-open") && e.key === "Escape") closeVideo();
+      });
+    }
+
     // PDF catalog lightbox: any button with class "catalog-btn" and a
     // data-catalog="path/to/file.pdf" attribute opens that PDF in an overlay.
     var catalogBtns = document.querySelectorAll(".catalog-btn");
