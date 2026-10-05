@@ -1118,6 +1118,28 @@ body.has-depth-bg .site-header {
 .event-block .stat b { color: var(--purple-60); }
 .event-text p a:hover { color: var(--teal); }
 
+/* Event text starts level with the top edge of the cover image
+   (skips the height of the event title above the cover) */
+.event-text { padding-top: calc(13.32px + 1.6rem + 0.5rem - 12px); }
+@media (max-width: 880px) { .event-text { padding-top: 0; } }
+
+/* "Download materials" — outlined twin of the purple Gallery button */
+.event-download-btn {
+  display: block;
+  width: 100%;
+  text-align: center;
+  border-radius: 10px;
+  margin-top: 0.8rem;
+  background: transparent;
+  border: 1px solid var(--purple-60);
+  color: var(--purple);
+}
+.event-download-btn:hover {
+  background: var(--purple-30);
+  border-color: var(--purple-80);
+  color: var(--purple);
+}
+
 .event-cover-placeholder {
   aspect-ratio: 16 / 9;
   background: var(--paper-alt);
