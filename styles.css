@@ -475,6 +475,116 @@ body.splash-locked { overflow: hidden; }
   .hero-graphic { max-width: 340px; }
 }
 
+/* ---------- Home hero banner (opens photo gallery) ---------- */
+.hero-banner {
+  position: relative;
+  align-self: stretch;
+  display: block;
+  min-height: 320px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  /* the banner image is partly transparent (beige panel, cut-out text),
+     so the page background must show through */
+  background: transparent;
+  font: inherit;
+  text-align: left;
+}
+.hero-banner-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 30% 50%;
+  transition: transform 0.9s cubic-bezier(.2,.7,.2,1);
+}
+.hero-banner:hover .hero-banner-img,
+.hero-banner:focus-visible .hero-banner-img { transform: scale(1.04); }
+.hero-banner:focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; }
+
+/* "View gallery" glass pill with a pulsing ring */
+.hero-banner-cta {
+  position: absolute;
+  right: clamp(1rem, 3vw, 2rem);
+  bottom: clamp(1rem, 3vw, 2rem);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: var(--teal-dark);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+  transition: padding 0.35s ease, background 0.35s ease, color 0.35s ease;
+}
+.hero-banner-icon {
+  position: relative;
+  z-index: 1;
+  width: 38px;
+  height: 38px;
+  padding: 10px;
+  border-radius: 50%;
+  background: var(--teal);
+  color: #fff;
+  flex-shrink: 0;
+}
+.hero-banner-pulse {
+  position: absolute;
+  left: 0.55rem;
+  top: 50%;
+  width: 38px;
+  height: 38px;
+  margin-top: -19px;
+  border-radius: 50%;
+  border: 2px solid var(--amber);
+  animation: hero-pulse 2.2s ease-out infinite;
+}
+.hero-banner-pulse::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  border: 2px solid var(--amber);
+  animation: hero-pulse 2.2s ease-out 1.1s infinite;
+}
+@keyframes hero-pulse {
+  0%   { transform: scale(1);   opacity: 0.9; }
+  100% { transform: scale(2.3); opacity: 0; }
+}
+.hero-banner-label {
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 0.95rem;
+  font-weight: 600;
+  opacity: 0;
+  transition: max-width 0.4s ease, opacity 0.3s ease, margin 0.4s ease;
+}
+/* label slides out on hover; on touch screens it is always visible */
+.hero-banner:hover .hero-banner-cta,
+.hero-banner:focus-visible .hero-banner-cta { padding-right: 1.1rem; background: #fff; }
+.hero-banner:hover .hero-banner-label,
+.hero-banner:focus-visible .hero-banner-label { max-width: 14rem; opacity: 1; }
+@media (hover: none) {
+  .hero-banner-cta { padding-right: 1.1rem; }
+  .hero-banner-label { max-width: 14rem; opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-banner-pulse, .hero-banner-pulse::after { animation: none; display: none; }
+  .hero-banner-img { transition: none; }
+}
+@media (max-width: 900px) {
+  .hero-banner {
+    aspect-ratio: 1 / 1;
+    min-height: 0;
+  }
+}
+
 .stat-row {
   display: flex;
   flex-wrap: wrap;

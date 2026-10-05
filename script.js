@@ -191,7 +191,7 @@
 
     // Event photo galleries (DEMOLAB page): each "Gallery" button opens a lightbox
     // that browses assets/events/<gallery-id>/photo-01.jpg, photo-02.jpg, ... in order.
-    var galleryBtns = document.querySelectorAll(".event-gallery-btn");
+    var galleryBtns = document.querySelectorAll(".event-gallery-btn, .js-gallery");
     if (galleryBtns.length) {
       var lightbox = document.getElementById("gallery-lightbox");
       var lightboxImg = document.getElementById("gallery-image");
@@ -217,11 +217,22 @@
         }
       };
 
+      // Galleries with an explicit photo list (data-photos="a.jpg,b.jpg,..."),
+      // e.g. the home page banner.
+      galleryBtns.forEach(function (btn) {
+        var list = btn.getAttribute("data-photos");
+        if (list) {
+          var photos = list.split(",").map(function (p) { return p.trim(); });
+          galleries[btn.getAttribute("data-gallery")] = { count: photos.length, photos: photos };
+        }
+      });
+
       var currentGallery = null;
       var currentIndex = 0;
 
       function photoSrc(galleryId, index) {
         var info = galleries[galleryId];
+        if (info.photos) return info.photos[index];
         var n = index + 1;
         var padded = n < 10 ? "0" + n : String(n);
         if (info.lastIsGroup && n === info.count) {
