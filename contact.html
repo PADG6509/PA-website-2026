@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;0,800;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=41">
+<link rel="stylesheet" href="styles.css?v=42">
 </head>
 <body>
 
@@ -96,22 +96,6 @@
             <dd>Dejan Đorđević</dd>
           </div>
           <div>
-            <dt data-en="Tax ID (PIB)" data-sr="PIB">Tax ID (PIB)</dt>
-            <dd>100164032</dd>
-          </div>
-          <div>
-            <dt data-en="Company registration number" data-sr="Matični broj">Company registration number</dt>
-            <dd>17242806</dd>
-          </div>
-          <div>
-            <dt data-en="Activity code" data-sr="Šifra delatnosti">Activity code</dt>
-            <dd>4690</dd>
-          </div>
-          <div>
-            <dt data-en="Bank account (Banca Intesa)" data-sr="Račun u banci (Banca Intesa)">Bank account (Banca Intesa)</dt>
-            <dd>160-925280-85</dd>
-          </div>
-          <div>
             <dt data-en="Phone" data-sr="Telefon">Phone</dt>
             <dd><a href="tel:+381113130542">+381 11 313 0542</a></dd>
           </div>
@@ -124,6 +108,37 @@
             <dd data-en="Monday–Friday, 7:30–15:30" data-sr="Ponedeljak–petak, 7:30–15:30">Monday–Friday, 7:30–15:30</dd>
           </div>
         </dl>
+
+        <!-- General company details: hidden until clicked; closes on a click outside -->
+        <div class="company-details" id="company-details">
+          <button type="button" class="cd-toggle" aria-expanded="false" aria-controls="cd-panel">
+            <span data-en="General company details" data-sr="Opšti podaci firme">General company details</span>
+            <svg class="cd-caret" width="12" height="8" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="cd-panel" id="cd-panel">
+            <div class="cd-inner">
+              <dl class="detail-list cd-list">
+                <div>
+                  <dt data-en="Tax ID (PIB)" data-sr="PIB">Tax ID (PIB)</dt>
+                  <dd>100164032</dd>
+                </div>
+                <div>
+                  <dt data-en="Company registration number" data-sr="Matični broj">Company registration number</dt>
+                  <dd>17242806</dd>
+                </div>
+                <div>
+                  <dt data-en="Activity code" data-sr="Šifra delatnosti">Activity code</dt>
+                  <dd>4690</dd>
+                </div>
+                <div>
+                  <dt data-en="Bank account (Banca Intesa)" data-sr="Račun u banci (Banca Intesa)">Bank account (Banca Intesa)</dt>
+                  <dd>160-925280-85</dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </div>
+
 
         <div class="axis-rule" style="margin-top:2.4rem;"><span data-en="Locations" data-sr="Lokacije">Locations</span></div>
 
@@ -217,6 +232,6 @@
   </div>
 </footer>
 
-<script src="script.js?v=26"></script>
+<script src="script.js?v=27"></script>
 </body>
 </html>

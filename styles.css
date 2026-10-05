@@ -1417,29 +1417,31 @@ body.has-depth-bg .site-header {
   .site-header .wrap { height: 80px; }
   .brand .logo-mark { margin: -6px 0; }
 
-  /* "Curtain" open: the panel unrolls from the burger corner (top-right),
-     like a window restoring from the Dock, and the tiles follow in sequence. */
+  /* Slide-in menu: the panel slides in from the right edge like a new
+     screen and covers the page below the header; tiles follow slightly later. */
   .site-nav {
     opacity: 1 !important;
-    transform: none !important;
     visibility: hidden;
-    clip-path: inset(0 0 100% 82% round 0 0 0 28px);
-    transition: clip-path var(--mnav-dur, 0.5s) cubic-bezier(0.65, 0, 0.35, 1),
-                visibility 0s linear var(--mnav-dur, 0.5s) !important;
+    transform: translateX(100%) !important;
+    box-shadow: -18px 0 40px rgba(23, 36, 43, 0);
+    transition: transform var(--mnav-dur, 0.45s) cubic-bezier(0.32, 0.72, 0, 1),
+                box-shadow var(--mnav-dur, 0.45s) ease,
+                visibility 0s linear var(--mnav-dur, 0.45s) !important;
   }
   .site-nav.is-open {
     visibility: visible;
-    clip-path: inset(0 0 0 0 round 0);
-    transition: clip-path var(--mnav-dur, 0.5s) cubic-bezier(0.65, 0, 0.35, 1),
+    transform: translateX(0) !important;
+    box-shadow: -18px 0 40px rgba(23, 36, 43, 0.12);
+    transition: transform var(--mnav-dur, 0.45s) cubic-bezier(0.32, 0.72, 0, 1),
+                box-shadow var(--mnav-dur, 0.45s) ease,
                 visibility 0s linear 0s !important;
   }
   .site-nav > ul > li,
   .site-nav > .lang-toggle,
   .site-nav > .mnav-contact {
     opacity: 0;
-    transform: translateY(-10px) scale(0.98);
-    transform-origin: top right;
-    transition: opacity calc(var(--mnav-dur, 0.5s) * 0.6) ease, transform calc(var(--mnav-dur, 0.5s) * 0.6) ease;
+    transform: translateX(28px);
+    transition: opacity calc(var(--mnav-dur, 0.45s) * 0.7) ease, transform calc(var(--mnav-dur, 0.45s) * 0.9) cubic-bezier(0.32, 0.72, 0, 1);
   }
   .site-nav.is-open > ul > li,
   .site-nav.is-open > .lang-toggle,
@@ -1447,14 +1449,56 @@ body.has-depth-bg .site-header {
     opacity: 1;
     transform: none;
   }
-  .site-nav.is-open > ul > li:nth-child(1) { transition-delay: calc(var(--mnav-dur, 0.5s) * 0.30); }
-  .site-nav.is-open > ul > li:nth-child(2) { transition-delay: calc(var(--mnav-dur, 0.5s) * 0.38); }
-  .site-nav.is-open > ul > li:nth-child(3) { transition-delay: calc(var(--mnav-dur, 0.5s) * 0.46); }
-  .site-nav.is-open > ul > li:nth-child(4) { transition-delay: calc(var(--mnav-dur, 0.5s) * 0.54); }
-  .site-nav.is-open > ul > li:nth-child(5) { transition-delay: calc(var(--mnav-dur, 0.5s) * 0.62); }
+  .site-nav.is-open > ul > li:nth-child(1) { transition-delay: calc(var(--mnav-dur, 0.45s) * 0.15); }
+  .site-nav.is-open > ul > li:nth-child(2) { transition-delay: calc(var(--mnav-dur, 0.45s) * 0.22); }
+  .site-nav.is-open > ul > li:nth-child(3) { transition-delay: calc(var(--mnav-dur, 0.45s) * 0.29); }
+  .site-nav.is-open > ul > li:nth-child(4) { transition-delay: calc(var(--mnav-dur, 0.45s) * 0.36); }
+  .site-nav.is-open > ul > li:nth-child(5) { transition-delay: calc(var(--mnav-dur, 0.45s) * 0.43); }
   .site-nav.is-open > .lang-toggle,
-  .site-nav.is-open > .mnav-contact { transition-delay: calc(var(--mnav-dur, 0.5s) * 0.70); }
+  .site-nav.is-open > .mnav-contact { transition-delay: calc(var(--mnav-dur, 0.45s) * 0.5); }
 }
 @media (max-width: 780px) and (prefers-reduced-motion: reduce) {
-  .site-nav, .site-nav.is-open { clip-path: none; }
+  .site-nav, .site-nav.is-open { transition-duration: 0.01s !important; }
 }
+
+/* ---------- Contact: collapsible "General company details" ---------- */
+.company-details {
+  margin-top: 1.12rem;
+  max-width: 380px;
+  background: var(--panel);
+  border-radius: var(--radius);
+}
+.cd-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: none;
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.cd-caret { flex-shrink: 0; color: var(--ink-soft); transition: transform 0.25s ease; }
+.company-details.is-open .cd-caret { transform: rotate(180deg); }
+.cd-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease;
+}
+.company-details.is-open .cd-panel { grid-template-rows: 1fr; }
+.cd-inner { overflow: hidden; }
+.cd-list {
+  margin: 0 !important;
+  padding: 0.3rem 1rem 1rem;
+  border-top: 1px solid var(--line);
+}
+.cd-list > div:first-child { padding-top: 0.6rem; }
+.cd-list dd { user-select: text; }
+.detail-list-after { margin-top: 1.12rem !important; }

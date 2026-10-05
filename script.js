@@ -289,6 +289,23 @@
       });
     }
 
+    // Contact page: "General company details" — opens on click, stays open
+    // (so the numbers can be copied) and closes only on a click outside it.
+    var cd = document.getElementById("company-details");
+    if (cd) {
+      var cdBtn = cd.querySelector(".cd-toggle");
+      cdBtn.addEventListener("click", function () {
+        var open = cd.classList.toggle("is-open");
+        cdBtn.setAttribute("aria-expanded", String(open));
+      });
+      document.addEventListener("click", function (e) {
+        if (cd.classList.contains("is-open") && !cd.contains(e.target)) {
+          cd.classList.remove("is-open");
+          cdBtn.setAttribute("aria-expanded", "false");
+        }
+      });
+    }
+
     // YouTube video lightbox: any button with class "video-btn" and a
     // data-video="<YouTube ID>" attribute plays that video in an overlay.
     // Closes on the X, on Escape, or on a click anywhere outside the video.
