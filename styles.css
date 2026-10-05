@@ -1502,3 +1502,67 @@ body.has-depth-bg .site-header {
 .cd-list > div:first-child { padding-top: 0.6rem; }
 .cd-list dd { user-select: text; }
 .detail-list-after { margin-top: 1.12rem !important; }
+
+/* ---------- Equipment product list (Laboratory Equipment subpages) ---------- */
+.eq-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0 0 2rem;
+}
+.eq-chips a {
+  font-size: 0.88rem;
+  color: var(--ink);
+  background: rgba(67, 30, 117, 0.1);
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.eq-chips a:hover { background: var(--purple-60); color: #fff; }
+.eq-list { display: grid; gap: 1.5rem; }
+.eq-product {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  align-items: center;
+  background: var(--panel);
+  border-radius: var(--radius);
+  padding: clamp(1.25rem, 3vw, 2.25rem);
+  scroll-margin-top: 190px;
+}
+.eq-photo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 240px;
+}
+.eq-photo img {
+  max-width: 100%;
+  max-height: 320px;
+  width: auto;
+  height: auto;
+  display: block;
+}
+.eq-app {
+  display: inline-block;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: 0.35rem;
+}
+.eq-title { font-size: 1.35rem; margin: 0 0 0.6rem; }
+.eq-body p {
+  text-align: justify;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin: 0;
+}
+@media (max-width: 760px) {
+  .eq-product { grid-template-columns: 1fr; }
+  .eq-photo { min-height: 0; }
+  .eq-photo img { max-height: 240px; }
+  .eq-body p { text-align: left; }
+}
