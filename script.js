@@ -48,6 +48,24 @@
       var tHref = window.location.pathname.split("/").pop() || "index.html";
       toggle.setAttribute("href", tHref + "?lang=" + target);
     }
+
+    // Desktop language switch: two dots (SR above EN), like the logo's colon.
+    if (toggle && !document.querySelector(".lang-dots")) {
+      var dots = document.createElement("div");
+      dots.className = "lang-dots";
+      ["sr", "en"].forEach(function (code) {
+        var d = document.createElement("a");
+        var t = document.createElement("span");
+        t.textContent = code.toUpperCase();
+        d.appendChild(t);
+        d.setAttribute("href", tHref + "?lang=" + code);
+        d.setAttribute("lang", code);
+        d.setAttribute("aria-label", code === "sr" ? "Srpski" : "English");
+        if (code === lang) { d.className = "is-active"; d.setAttribute("aria-current", "true"); }
+        dots.appendChild(d);
+      });
+      toggle.insertAdjacentElement("afterend", dots);
+    }
   }
 
   applyLang(lang);
