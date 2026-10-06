@@ -1060,7 +1060,7 @@ body.has-depth-bg .site-header {
   background: var(--purple-60) !important;
   color: var(--white) !important;
   padding: 0.3rem 0.7rem !important;
-  border-radius: 999px;
+  border-radius: 7px;
   border-bottom: none !important;
   font-weight: 700;
   transition: background 0.18s ease, transform 0.18s ease;
@@ -1139,6 +1139,49 @@ body.has-depth-bg .site-header {
   border-color: var(--purple-80);
   color: var(--purple);
 }
+
+/* DEMOLAB post titles in full capitals for visibility */
+.event-media .axis-rule span {
+  text-transform: uppercase;
+  line-height: 1.15;   /* long titles wrap cleanly onto two lines */
+  margin: -0.2em 0;    /* single-line height stays as before, so cover/text alignment is unchanged */
+}
+
+/* Gallery + Download merged into one button (same height as a single button):
+   left half purple = Gallery, right half white = Download, split by a diagonal line.
+   clip-path also clips the click area, so each half is clicked only where it is visible. */
+.event-split-btn {
+  --slant: 22px;
+  display: flex;
+  margin-top: 0.8rem;
+  border: 1px solid var(--purple-60);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+}
+.event-split-btn > .btn {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  width: calc(50% + var(--slant) / 2);
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+.event-split-btn > .event-gallery-btn-media {
+  position: relative; z-index: 1;
+  padding-left: 1rem; padding-right: calc(1rem + var(--slant));
+  clip-path: polygon(0 0, 100% 0, calc(100% - var(--slant)) 100%, 0 100%);
+  background: #8E78AC; color: var(--white); /* opaque = purple-60 on white */
+}
+.event-split-btn > .event-gallery-btn-media:hover { background: #694B91; color: var(--white); }
+.event-split-btn > .event-download-btn {
+  margin-left: calc(var(--slant) * -1);
+  padding-left: calc(1rem + var(--slant)); padding-right: 1rem;
+  background: #fff; color: var(--purple);
+}
+.event-split-btn > .event-download-btn:hover { background: #C7BCD6; color: var(--purple); }
 
 .event-cover-placeholder {
   aspect-ratio: 16 / 9;
