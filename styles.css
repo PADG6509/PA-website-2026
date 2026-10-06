@@ -1890,3 +1890,5 @@ body[class*="cat-"] .eq-chips a { border-radius: 8px; }
     font-size: calc(1rem * var(--mfont));
   }
 }
+/* product descriptions with more than one paragraph */
+.eq-body p + p { margin-top: 0.8rem; }
