@@ -1692,6 +1692,23 @@ body.has-depth-bg .site-header {
   color: var(--ink-soft);
   margin: 0;
 }
+/* Grid variant: same product panels, stacked (photo on top) in 3 columns */
+.eq-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+}
+.eq-grid .eq-product {
+  grid-template-columns: 1fr;
+  align-items: start;
+  align-content: start;
+  gap: 1.25rem;
+}
+.eq-grid .eq-photo { min-height: 0; height: 240px; }
+.eq-grid .eq-photo img { max-height: 240px; }
+.eq-grid .eq-title { font-size: 1.2rem; }
+.eq-grid .eq-body p { font-size: 0.9rem; }
+@media (max-width: 1000px) { .eq-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px)  { .eq-grid { grid-template-columns: 1fr; } }
 @media (max-width: 760px) {
   .eq-product { grid-template-columns: 1fr; }
   .eq-photo { min-height: 0; }
