@@ -1808,3 +1808,47 @@ button.dl-corner { border: 0; cursor: pointer; font: inherit; }
   padding-bottom: 2.6rem;
   padding-right: var(--card-pad);
 }
+
+/* ---------- Category colour theming (category + subcategory pages) ----------
+   Chemicals = amber, Furniture = teal, Equipment = purple.
+   Set by a class on <body>: cat-chem / cat-furn / cat-equip. */
+body.cat-chem  { --cat: #F9A01B; --cat-text: #8A5300; --cat-10: rgba(249,160,27,0.14); --cat-22: rgba(249,160,27,0.45); --cat-hover-bg: #F9A01B; --cat-hover-ink: #1F1F1F; }
+body.cat-furn  { --cat: #00807F; --cat-text: #005F5E; --cat-10: rgba(0,128,127,0.09);  --cat-22: rgba(0,128,127,0.22);  --cat-hover-bg: #00807F; --cat-hover-ink: #fff; }
+body.cat-equip { --cat: #431E75; --cat-text: #431E75; --cat-10: rgba(67,30,117,0.10);  --cat-22: rgba(67,30,117,0.25);  --cat-hover-bg: rgba(67,30,117,0.6); --cat-hover-ink: #fff; }
+
+/* hero quick-link chips */
+body[class*="cat-"] .quick-links a { color: var(--cat-text); background: var(--cat-10); border-color: var(--cat-22); }
+body[class*="cat-"] .quick-links a:hover { background: var(--cat-hover-bg); border-color: var(--cat); color: var(--cat-hover-ink); }
+/* category list: small label + "View products" button */
+body[class*="cat-"] .group-item .ref { color: var(--cat-text); }
+body[class*="cat-"] .detail-btn { color: var(--cat-text); border-color: var(--cat); }
+body[class*="cat-"] .detail-btn:hover { background: var(--cat-hover-bg); color: var(--cat-hover-ink); }
+/* subcategory pages: application chips + product label */
+body[class*="cat-"] .eq-chips a { background: var(--cat-10); }
+body[class*="cat-"] .eq-chips a:hover { background: var(--cat-hover-bg); color: var(--cat-hover-ink); }
+body[class*="cat-"] .eq-app { color: var(--cat-text); }
+/* empty subcategory pages: placeholder cards */
+body[class*="cat-"] .placeholder-card { border-color: var(--cat-22); }
+body[class*="cat-"] .placeholder-card .ph-icon { border-color: var(--cat); color: var(--cat-text); }
+/* All buttons on category + subcategory pages: 10px corners (like DEMOLAB Gallery button) */
+body[class*="cat-"] .quick-links a,
+body[class*="cat-"] .detail-btn,
+body[class*="cat-"] .eq-chips a,
+body[class*="cat-"] .btn,
+body[class*="cat-"] .btn-catalog { border-radius: 10px; }
+/* smaller application chips on subcategory pages: 8px so they don't read as full pills */
+body[class*="cat-"] .eq-chips a { border-radius: 8px; }
+
+/* DEMOLAB: event text always starts level with the top of the cover image,
+   even when the event title wraps onto two lines. The media column is
+   "unwrapped" so title / cover / button / text share one grid. */
+@media (min-width: 881px) {
+  .event-block { grid-template-rows: auto auto auto 1fr; row-gap: 0; }
+  .event-block .event-media { display: contents; }
+  .event-block .event-media > * { grid-column: 1; }
+  .event-block .event-media > .axis-rule { grid-row: 1; }
+  .event-block .event-media > .event-cover,
+  .event-block .event-media > .event-cover-placeholder { grid-row: 2; }
+  .event-block .event-media > .event-split-btn { grid-row: 3; }
+  .event-block .event-text { grid-column: 2; grid-row: 2 / 5; padding-top: 0; margin-top: calc(0.5rem - 4px); }
+}
