@@ -1715,3 +1715,41 @@ body.has-depth-bg .site-header {
   .eq-photo img { max-height: 240px; }
   .eq-body p { text-align: left; }
 }
+
+/* ---------- Download corner on product cards ----------
+   A triangle cut into the bottom-right corner, in the category colour,
+   with a download arrow in the card colour. Its legs are 2× the card
+   padding (minus a small gap), so it never reaches the text. */
+.eq-product { position: relative; overflow: hidden; --card-pad: clamp(1.25rem, 3vw, 2.25rem); }
+.dl-corner {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: calc(2 * var(--card-pad) - 6px);
+  height: calc(2 * var(--card-pad) - 6px);
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+  background: var(--purple-60);
+  color: var(--panel);
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 0 7px 7px 0;
+  transition: background 0.2s ease, width 0.2s ease, height 0.2s ease;
+}
+button.dl-corner { border: 0; cursor: pointer; font: inherit; }
+.dl-corner.is-disabled { cursor: default; pointer-events: none; }
+.dl-corner svg { width: 40%; height: 40%; min-width: 16px; min-height: 16px; }
+.dl-corner:hover, .dl-corner:focus-visible { background: var(--purple); }
+.dl-corner:focus-visible { outline: none; }
+.dl-teal { background: var(--teal); }
+.dl-teal:hover, .dl-teal:focus-visible { background: var(--teal-dark); }
+.dl-amber { background: var(--amber); }
+
+/* Furniture card (Fume Hoods): no panel, so the corner sits on the card itself */
+.product-detail-card.has-dl {
+  position: relative;
+  overflow: hidden;
+  --card-pad: 1.6rem;
+  padding-bottom: calc(var(--card-pad) * 1);
+  padding-right: var(--card-pad);
+}
