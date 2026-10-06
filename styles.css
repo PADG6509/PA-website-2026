@@ -1852,3 +1852,41 @@ body[class*="cat-"] .eq-chips a { border-radius: 8px; }
   .event-block .event-media > .event-split-btn { grid-row: 3; }
   .event-block .event-text { grid-column: 2; grid-row: 2 / 5; padding-top: 0; margin-top: calc(0.5rem - 4px); }
 }
+
+/* Mobile menu: auto-fit to the screen height.
+   script.js sets --mfit (0.35–1) on .site-nav so that everything visible when
+   the menu opens fits on screen; spacing shrinks first, text only a little. */
+@media (max-width: 780px) {
+  .site-nav {
+    --mfit: 1;
+    --mfont: calc(0.78 + 0.22 * var(--mfit));
+    gap: calc(0.9rem * var(--mfit));
+    padding: calc(1.2rem * var(--mfit)) var(--gutter) calc(1.4rem * var(--mfit));
+  }
+  .site-nav > ul { gap: calc(0.6rem * var(--mfit)); }
+  .site-nav > ul > li > a,
+  .site-nav .dropdown-toggle,
+  .site-nav .nav-highlight {
+    padding: calc(0.95rem * var(--mfit)) 1.2rem !important;
+    font-size: calc(1.35rem * var(--mfont)) !important;
+  }
+  .site-nav .dropdown-menu {
+    gap: calc(0.4rem * var(--mfit));
+    padding: calc(0.45rem * var(--mfit)) 0 0.1rem 1rem;
+  }
+  .site-nav .mega-col-title {
+    padding-top: calc(0.7rem * var(--mfit));
+    padding-bottom: calc(0.7rem * var(--mfit));
+    font-size: calc(1.05rem * var(--mfont));
+  }
+  .mcol-toggle { height: 100%; max-height: 2.75rem; }
+  .site-nav .mega-col.is-expanded ul li a {
+    padding-top: calc(0.55rem * var(--mfit));
+    padding-bottom: calc(0.55rem * var(--mfit));
+    font-size: calc(1rem * var(--mfont));
+  }
+  .mnav-contact {
+    padding-top: calc(1.1rem * var(--mfit));
+    font-size: calc(1rem * var(--mfont));
+  }
+}

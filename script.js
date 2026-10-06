@@ -115,8 +115,42 @@
           if ((a.getAttribute("href") || "").split("?")[0] === page) a.classList.add("is-current");
         });
       });
+      // Auto-fit: shrink spacing (and, a little, text) so the whole open menu
+      // fits the screen height on any phone. Finds the largest scale 0.35–1 that fits.
+      // If the expanded current category does not fit even at a moderate scale
+      // (small phones), it opens collapsed instead (still highlighted).
+      function fitScale() {
+        var lo = 0.35, hi = 1, i;
+        nav.style.setProperty("--mfit", "1");
+        if (nav.scrollHeight <= nav.clientHeight + 1) return 1;
+        for (i = 0; i < 8; i++) {
+          var mid = (lo + hi) / 2;
+          nav.style.setProperty("--mfit", mid.toFixed(3));
+          if (nav.scrollHeight <= nav.clientHeight + 1) lo = mid; else hi = mid;
+        }
+        return lo;
+      }
+      function fitNav(opening) {
+        if (window.innerWidth > 780) { nav.style.removeProperty("--mfit"); return; }
+        var s = fitScale();
+        var ex = nav.querySelector(".mega-col.is-current.is-expanded");
+        if (opening && ex && s < 0.6) {
+          ex.classList.remove("is-expanded");
+          var t = ex.querySelector(".mcol-toggle");
+          if (t) t.setAttribute("aria-expanded", "false");
+          s = fitScale();
+        }
+        nav.style.setProperty("--mfit", s.toFixed(3));
+      }
+      window.addEventListener("resize", function () {
+        if (nav.classList.contains("is-open")) {
+          if (header) nav.style.setProperty("--mnav-top", header.getBoundingClientRect().bottom + "px");
+          fitNav();
+        }
+      });
       navToggle.addEventListener("click", function () {
         if (header) nav.style.setProperty("--mnav-top", header.getBoundingClientRect().bottom + "px");
+        if (!nav.classList.contains("is-open")) fitNav(true);
         var open = nav.classList.toggle("is-open");
         navToggle.setAttribute("aria-expanded", String(open));
         document.body.classList.toggle("nav-open", open);
