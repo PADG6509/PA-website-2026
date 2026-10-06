@@ -1727,29 +1727,41 @@ body.has-depth-bg .site-header {
   bottom: 0;
   width: calc(2 * var(--card-pad) - 6px);
   height: calc(2 * var(--card-pad) - 6px);
+  min-width: 56px;
+  min-height: 56px;
   clip-path: polygon(100% 0, 100% 100%, 0 100%);
   background: var(--purple-60);
   color: var(--panel);
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  padding: 0 7px 7px 0;
-  transition: background 0.2s ease, width 0.2s ease, height 0.2s ease;
+  padding: 0;
+  transition: background 0.2s ease;
 }
 button.dl-corner { border: 0; cursor: pointer; font: inherit; }
 .dl-corner.is-disabled { cursor: default; pointer-events: none; }
-.dl-corner svg { width: 40%; height: 40%; min-width: 16px; min-height: 16px; }
+/* arrow sits in the visual centre of the triangle (about 2/3 towards the corner) */
+.dl-corner svg {
+  position: absolute;
+  right: 14%;
+  bottom: 14%;
+  width: 34%;
+  height: 34%;
+}
 .dl-corner:hover, .dl-corner:focus-visible { background: var(--purple); }
 .dl-corner:focus-visible { outline: none; }
 .dl-teal { background: var(--teal); }
 .dl-teal:hover, .dl-teal:focus-visible { background: var(--teal-dark); }
 .dl-amber { background: var(--amber); }
 
+/* Small screens: the card padding shrinks, so the corner keeps a
+   minimum size and the card gets extra bottom room for it */
+@media (max-width: 760px) {
+  .eq-product { padding-bottom: calc(var(--card-pad) + 2.2rem); }
+}
+
 /* Furniture card (Fume Hoods): no panel, so the corner sits on the card itself */
 .product-detail-card.has-dl {
   position: relative;
   overflow: hidden;
   --card-pad: 1.6rem;
-  padding-bottom: calc(var(--card-pad) * 1);
+  padding-bottom: 2.6rem;
   padding-right: var(--card-pad);
 }
