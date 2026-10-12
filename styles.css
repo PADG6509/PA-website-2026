@@ -1892,3 +1892,69 @@ body[class*="cat-"] .eq-chips a { border-radius: 8px; }
 }
 /* product descriptions with more than one paragraph */
 .eq-body p + p { margin-top: 0.8rem; }
+
+/* =========================================================
+   Desktop mega-menu: dark frosted glass (Oct 2026)
+   ========================================================= */
+@media (min-width: 781px) {
+  /* Header blur lives on ::before — a backdrop-filter on the header itself
+     would stop the dropdown from blurring the page behind it. */
+  .site-header,
+  body.has-depth-bg .site-header {
+    background: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .site-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: rgba(255, 255, 255, 0.94);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+  }
+
+  .dropdown-menu {
+    display: grid;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateX(-42%) translateY(8px);
+    background: rgba(23, 36, 44, 0.45);
+    -webkit-backdrop-filter: blur(26px) saturate(1.3);
+    backdrop-filter: blur(26px) saturate(1.3);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-top: 3px solid var(--teal);
+    border-radius: 14px;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.30);
+    transition: opacity 0.22s ease, transform 0.22s ease, visibility 0s linear 0.22s;
+  }
+  .dropdown-menu.is-open {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-42%) translateY(0);
+    transition: opacity 0.22s ease, transform 0.22s ease, visibility 0s;
+  }
+
+  .mega-col-title {
+    color: #fff;
+    font-weight: 700;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+  }
+  .mega-col-title:hover { color: #fff; opacity: 0.85; }
+  .mega-col:nth-child(1) .mega-col-title { border-bottom-color: var(--amber); }
+  .mega-col:nth-child(2) .mega-col-title { border-bottom-color: var(--teal); }
+  .mega-col:nth-child(3) .mega-col-title { border-bottom-color: #8A63C4; }
+
+  .mega-col ul li a {
+    color: #fff;
+    font-weight: 500;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+  }
+  .mega-col:nth-child(1) ul li a:hover { background: rgba(249, 160, 27, 0.35); color: #fff; }
+  .mega-col:nth-child(2) ul li a:hover { background: rgba(0, 128, 127, 0.45);  color: #fff; }
+  .mega-col:nth-child(3) ul li a:hover { background: rgba(120, 80, 190, 0.45); color: #fff; }
+}
+@media (min-width: 781px) and (prefers-reduced-motion: reduce) {
+  .dropdown-menu, .dropdown-menu.is-open { transition: none; }
+}
