@@ -913,6 +913,7 @@ form.contact-form {
 .hero-fume-hoods { background-image: url("assets/products/fume-hoods-hero.jpg"); background-position: center 22%; }
 .hero-safety-cabinets { background-color: #1b1c1e; background-image: url("assets/products/safety-cabinets-hero.jpg"); background-position: right 55%; }
 .hero-extraction-arms { background-color: #ECEBE6; background-image: url("assets/products/extraction-arms-hero.jpg"); background-position: right center; }
+.hero-digestion { background-color: #3d5878; background-image: url("assets/products/digestion-hero.jpg"); background-position: right center; }
 .hero-glass.hero-glass-wide { max-width: 640px; }
 .hero-glass .btn-catalog { margin-top: 0.4rem; }
 .page-hero-photo .wrap { width: 100%; }
