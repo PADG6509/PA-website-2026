@@ -1980,3 +1980,32 @@ body[class*="cat-"] .eq-chips a { border-radius: 8px; }
   background: var(--cat-10, rgba(0, 128, 127, 0.09));
   color: var(--cat-text, var(--teal-dark));
 }
+
+/* ---------- About: Lach:ner map behind "Milestones", group logo in stat row ---------- */
+.milestones-map { position: relative; isolation: isolate; overflow: hidden; }
+.milestones-map::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: url("assets/about/lachner-map.webp") no-repeat;
+  background-size: auto 100%;
+  background-position: right max(0px, calc(50% - 720px)) center;
+  opacity: 0.4;
+  pointer-events: none;
+}
+/* Milestone text stays crisp over the map: darker ink + soft white halo */
+.milestones-map .group-item p {
+  color: var(--ink);
+  text-shadow: 0 0 4px #fff, 0 0 10px #fff, 0 0 16px rgba(255, 255, 255, 0.9);
+}
+.milestones-map h2 { text-shadow: 0 0 8px #fff, 0 0 16px #fff; }
+/* 2017 — joined the Lach:ner Group: shown in the Lach:ner blue from the map */
+.milestone-year.milestone-lachner { color: #65ADE3; }
+.stat-row:has(.stat-logo) { column-gap: clamp(1.25rem, 2.5vw, 2rem); }
+.stat-logo { display: flex; align-items: center; margin-left: auto; }
+.stat-logo img { height: 64px; width: auto; display: block; }
+@media (max-width: 760px) {
+  .milestones-map::before { background-size: 85% auto; background-position: right bottom; opacity: 0.3; }
+  .stat-logo { margin-left: 0; }
+}
