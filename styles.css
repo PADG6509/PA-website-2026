@@ -2215,3 +2215,64 @@ body[class*="cat-"] .eq-chips a { border-radius: 8px; }
 @media (prefers-reduced-motion: reduce) {
   .supply-card, .supply-stage img, .supply-go { transition: none; }
 }
+
+/* Milestones: compact rows + map covers the whole segment on mobile too (v62) */
+.milestones-map .group-item { padding: 0.7rem 0; gap: 2rem; align-items: center; }
+.milestones-map .group-item p { margin: 0; }
+@media (max-width: 760px) {
+  .milestones-map::before { background-size: auto 100%; background-position: 58% center; opacity: 0.3; }
+}
+@media (max-width: 700px) {
+  .milestones-map .group-item { padding: 0.6rem 0; gap: 0.2rem; }
+}
+
+/* About: partner logos — "measurement grid" with crosshair marks (v62) */
+.partners-section { position: relative; isolation: isolate; background: var(--panel); }
+.partners-section::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background-image: radial-gradient(rgba(0,128,127,0.22) 1.1px, transparent 1.3px);
+  background-size: 18px 18px;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 30%, #000 70%, transparent);
+          mask-image: linear-gradient(180deg, transparent, #000 30%, #000 70%, transparent);
+}
+.partners-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; }
+.partners-head h2 { margin-bottom: 0; }
+.partner-logos {
+  --cols: 4;
+  display: grid; grid-template-columns: repeat(var(--cols), 1fr);
+  margin-top: 2.4rem; padding: 0; list-style: none;
+}
+.plogo {
+  position: relative; height: 140px;
+  display: grid; place-items: center;
+  border-right: 1px dashed rgba(23,36,44,0.18);
+  border-bottom: 1px dashed rgba(23,36,44,0.18);
+}
+.plogo:nth-child(4n) { border-right: none; }
+.plogo:nth-last-child(-n+4) { border-bottom: none; }
+/* crosshair at each inner grid intersection */
+.plogo::after {
+  content: ""; position: absolute; right: -8px; bottom: -8px; width: 15px; height: 15px; z-index: 1;
+  background:
+    linear-gradient(var(--teal), var(--teal)) center / 15px 1.5px no-repeat,
+    linear-gradient(var(--teal), var(--teal)) center / 1.5px 15px no-repeat;
+}
+.plogo:nth-child(4n)::after, .plogo:nth-last-child(-n+4)::after { display: none; }
+.plogo a { display: grid; place-items: center; width: 100%; height: 100%; }
+.plogo a:focus-visible { outline: 2px solid var(--teal); outline-offset: -6px; border-radius: 8px; }
+.plogo img { max-width: 78%; height: auto; transition: transform 0.35s cubic-bezier(.2,.7,.2,1); }
+.plogo a:hover img { transform: scale(1.08); }
+@media (max-width: 700px) {
+  .partners-head { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .plogo { height: 110px; }
+  .partner-logos { grid-template-columns: repeat(2, 1fr); }
+  .plogo:nth-child(4n) { border-right: 1px dashed rgba(23,36,44,0.18); }
+  .plogo:nth-child(2n) { border-right: none; }
+  .plogo:nth-last-child(-n+4) { border-bottom: 1px dashed rgba(23,36,44,0.18); }
+  .plogo:nth-last-child(-n+2) { border-bottom: none; }
+  .plogo:nth-child(4n)::after, .plogo:nth-last-child(-n+4)::after { display: block; }
+  .plogo:nth-child(2n)::after, .plogo:nth-last-child(-n+2)::after { display: none; }
+  .plogo img { transform: scale(0.82); }
+}
+.plogo img.plogo-rounded { border-radius: 8px; }
+@media (prefers-reduced-motion: reduce) { .plogo img { transition: none; } }
