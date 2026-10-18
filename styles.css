@@ -2284,3 +2284,10 @@ body[class*="cat-"] .eq-chips a { border-radius: 8px; }
 /* Sterilization subcategory hero: products on light background, like Extraction arms (v64) */
 .hero-sterilization { background-color: #ECEBE6; background-image: url("assets/products/sterilization-hero.jpg"); background-position: right center; }
 @media (max-width: 700px) { .hero-sterilization { background-position: 78% center; } }
+
+/* Bulleted spec list inside product descriptions */
+.eq-body ul.eq-points { list-style: disc; margin: 0.6rem 0 0.8rem 1.2rem; padding: 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink-soft); }
+.eq-body ul.eq-points li + li { margin-top: 0.15rem; }
+
+/* Sample preparation subcategory hero */
+.hero-sample-prep { background-color: #e9eef1; background-image: url("assets/products/sample-prep-hero.jpg"); background-position: center 85%; }
