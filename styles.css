@@ -2314,6 +2314,7 @@ body[class*="cat-"] .eq-chips a { border-radius: 8px; }
   .page-hero-photo .wrap { padding-top: 240px; }
   .page-hero-photo .hero-glass { background: var(--panel); backdrop-filter: none; -webkit-backdrop-filter: none; box-shadow: 0 10px 28px -16px rgba(23,36,44,0.35); }
   .hero-contact { background-position: 84% top; }
-  .hero-sterilization { background-position: 96% top; }
-  .hero-extraction-arms, .hero-neutralization, .hero-safety-cabinets, .hero-digestion { background-position: 88% top; }
+  .hero-sterilization { background-image: url("assets/products/sterilization-hero-mobile.jpg"); background-size: 100% auto; background-position: center top; }
+  .hero-safety-cabinets { background-image: url("assets/products/safety-cabinets-hero-mobile.jpg"); background-size: 100% auto; background-position: center top; }
+  .hero-extraction-arms, .hero-neutralization, .hero-digestion { background-position: 88% top; }
 }
