@@ -2298,3 +2298,22 @@ body[class*="cat-"] .eq-chips a { border-radius: 8px; }
 /* Laboratory Chemicals category + Laboratory & Analytical Chemicals subcategory heroes */
 .hero-chemicals { background-color: #c9d3de; background-image: url("assets/products/chemicals-hero.jpg"); background-position: center 60%; }
 .hero-chemicals-general { background-color: #9fb3c8; background-image: url("assets/products/chemicals-general-hero.jpg"); background-position: center 55%; }
+
+/* Contact page hero: the whole telephone stays in frame */
+.hero-contact { background-color: #4f5b3a; background-image: url("assets/contact-hero.jpg"); background-position: center center; }
+
+
+/* Mobile (all photo heroes): photo band on top, text panel below it */
+@media (max-width: 700px) {
+  .page-hero-photo {
+    display: block; min-height: 0;
+    padding: 0 0 1.75rem;
+    background-color: var(--paper);
+    background-size: auto 264px; background-position: center top;
+  }
+  .page-hero-photo .wrap { padding-top: 240px; }
+  .page-hero-photo .hero-glass { background: var(--panel); backdrop-filter: none; -webkit-backdrop-filter: none; box-shadow: 0 10px 28px -16px rgba(23,36,44,0.35); }
+  .hero-contact { background-position: 84% top; }
+  .hero-sterilization { background-position: 96% top; }
+  .hero-extraction-arms, .hero-neutralization, .hero-safety-cabinets, .hero-digestion { background-position: 88% top; }
+}
