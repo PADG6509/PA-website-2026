@@ -2280,3 +2280,7 @@ body[class*="cat-"] .eq-chips a { border-radius: 8px; }
 /* Nameštaj subcategory: photo hero + rounded product photos (v63) */
 .hero-lab-furniture { background-color: #dfe3ea; background-image: url("assets/products/furniture-hero.jpg"); background-position: center 60%; }
 .eq-photo img.eq-photo-rounded { border-radius: 10px; }
+
+/* Sterilization subcategory hero: products on light background, like Extraction arms (v64) */
+.hero-sterilization { background-color: #ECEBE6; background-image: url("assets/products/sterilization-hero.jpg"); background-position: right center; }
+@media (max-width: 700px) { .hero-sterilization { background-position: 78% center; } }
