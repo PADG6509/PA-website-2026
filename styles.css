@@ -2318,3 +2318,9 @@ body[class*="cat-"] .eq-chips a { border-radius: 8px; }
   .hero-safety-cabinets { background-image: url("assets/products/safety-cabinets-hero-mobile.jpg"); background-size: 100% auto; background-position: center top; }
   .hero-extraction-arms, .hero-neutralization, .hero-digestion { background-position: 88% top; }
 }
+
+/* Climate chambers subcategory hero (whole car in frame) */
+.hero-climate-chambers { background-color: #8c7a63; background-image: url("assets/products/climate-chambers-hero.jpg"); background-position: center center; min-height: max(460px, min(45.3vw, 700px)); }
+@media (max-width: 700px) {
+  .hero-climate-chambers { background-color: var(--paper); min-height: 0; background-image: url("assets/products/climate-chambers-hero-mobile.jpg"); background-size: 100% auto; background-position: center top; }
+}
