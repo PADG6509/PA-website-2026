@@ -2291,3 +2291,10 @@ body[class*="cat-"] .eq-chips a { border-radius: 8px; }
 
 /* Sample preparation subcategory hero */
 .hero-sample-prep { background-color: #e9eef1; background-image: url("assets/products/sample-prep-hero.jpg"); background-position: center 85%; }
+
+/* Elemental analysis subcategory hero */
+.hero-elemental { background-color: #1d3a55; background-image: url("assets/products/elemental-hero.jpg"); background-position: center center; }
+
+/* Laboratory Chemicals category + Laboratory & Analytical Chemicals subcategory heroes */
+.hero-chemicals { background-color: #c9d3de; background-image: url("assets/products/chemicals-hero.jpg"); background-position: center 60%; }
+.hero-chemicals-general { background-color: #9fb3c8; background-image: url("assets/products/chemicals-general-hero.jpg"); background-position: center 55%; }
