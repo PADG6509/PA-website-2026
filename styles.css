@@ -2324,3 +2324,42 @@ body[class*="cat-"] .eq-chips a { border-radius: 8px; }
 @media (max-width: 700px) {
   .hero-climate-chambers { background-color: var(--paper); min-height: 0; background-image: url("assets/products/climate-chambers-hero-mobile.jpg"); background-size: 100% auto; background-position: center top; }
 }
+
+/* ---------- Category pages: subcategory list (numbered rows) ---------- */
+.sub-list { border-top: 1px solid var(--line); }
+.sl-row {
+  position: relative; display: grid; grid-template-columns: 72px 1fr auto; gap: 1.5rem; align-items: center;
+  padding: 1.6rem 1.25rem 1.6rem 0.5rem; border-bottom: 1px solid var(--line);
+  text-decoration: none; color: inherit; scroll-margin-top: 190px; transition: background 0.25s ease;
+}
+.sl-row::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--cat, var(--teal)); transform: scaleY(0); transition: transform 0.3s ease; }
+.sl-row:hover { background: var(--panel); }
+.sl-row:hover::before { transform: scaleY(1); }
+.sl-num { font-size: 2.6rem; font-weight: 800; line-height: 1; color: transparent; -webkit-text-stroke: 1.3px var(--cat, var(--teal)); opacity: 0.75; text-align: center; }
+.sl-main h3 { font-size: 1.3rem; margin: 0 0 0.35rem; color: var(--ink); }
+.sl-main p { font-size: 0.95rem; color: var(--ink-soft); margin: 0; max-width: 70ch; }
+.sl-chips { display: flex; flex-wrap: wrap; gap: 0.35rem 0.4rem; margin-top: 0.75rem; }
+.sl-chips span { font-size: 0.78rem; padding: 0.2rem 0.55rem; border-radius: 8px; background: var(--cat-10, rgba(0,128,127,0.09)); color: var(--cat-text, var(--teal-dark)); }
+.sl-side { display: flex; align-items: center; gap: 1rem; }
+.sl-count { font-size: 0.82rem; font-weight: 600; color: var(--ink-soft); white-space: nowrap; }
+.sl-count.sl-soon { color: var(--cat-text, var(--teal-dark)); }
+.sl-arrow { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; border: 1.5px solid var(--cat, var(--teal)); color: var(--cat-text, var(--teal-dark)); transition: background 0.25s, color 0.25s, transform 0.25s; }
+.sl-row:hover .sl-arrow { background: var(--cat, var(--teal)); color: #fff; transform: translateX(4px); }
+body.cat-chem .sl-row:hover .sl-arrow { color: #1F1F1F; }
+@media (max-width: 700px) {
+  .sl-row { grid-template-columns: 44px 1fr; gap: 0.9rem; padding: 1.25rem 0.25rem; }
+  .sl-num { font-size: 1.8rem; }
+  .sl-side { grid-column: 2; justify-content: space-between; }
+  .sl-arrow { width: 38px; height: 38px; }
+}
+@media (prefers-reduced-motion: reduce) { .sl-row, .sl-row::before, .sl-arrow { transition: none; } }
+
+
+/* About › Milestones: outlined year numerals (same style as category list numbers) */
+.milestone-year {
+  font-family: var(--font-display);
+  font-size: 2.34rem; font-weight: 800; line-height: 1; letter-spacing: 0;
+  color: transparent; -webkit-text-stroke: 1.3px var(--teal);
+}
+.milestone-year.milestone-lachner { color: #65ADE3; -webkit-text-stroke: 0; }
+@media (max-width: 700px) { .milestone-year { font-size: 2.1rem; } }
