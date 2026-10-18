@@ -2276,3 +2276,7 @@ body[class*="cat-"] .eq-chips a { border-radius: 8px; }
 }
 .plogo img.plogo-rounded { border-radius: 8px; }
 @media (prefers-reduced-motion: reduce) { .plogo img { transition: none; } }
+
+/* Nameštaj subcategory: photo hero + rounded product photos (v63) */
+.hero-lab-furniture { background-color: #dfe3ea; background-image: url("assets/products/furniture-hero.jpg"); background-position: center 60%; }
+.eq-photo img.eq-photo-rounded { border-radius: 10px; }
