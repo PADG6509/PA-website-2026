@@ -474,3 +474,85 @@
       .then(function () { btn.disabled = false; btn.textContent = label; });
   });
 })();
+
+// ---------- Products page: Prezi-style zoom into a category (Oct 2026) ----------
+(function () {
+  var cards = document.querySelectorAll(".cat-card[data-zoom]");
+  if (!cards.length) return;
+  var main = document.querySelector("main");
+  var header = document.querySelector(".site-header");
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var current = null, lastCard = null, busy = false;
+  var DUR = reduce ? 0 : 800;
+
+  function headerBottom() { return header ? Math.max(0, header.getBoundingClientRect().bottom) : 0; }
+  function place(panel, card) {
+    var top = headerBottom();
+    var icon = card.querySelector(".cat-icon").getBoundingClientRect();
+    var x = icon.left + icon.width / 2, y = icon.top + icon.height / 2 - top;
+    var w = window.innerWidth, h = window.innerHeight - top;
+    var r = Math.ceil(Math.sqrt(Math.pow(Math.max(x, w - x), 2) + Math.pow(Math.max(y, h - y), 2))) + 4;
+    panel.style.setProperty("--cz-top", top + "px");
+    panel.style.setProperty("--cz-x", x + "px");
+    panel.style.setProperty("--cz-y", y + "px");
+    panel.style.setProperty("--cz-r", r + "px");
+    return { x: x, y: y + top };
+  }
+  function open(card, push) {
+    if (busy || current) return;
+    var panel = document.getElementById(card.getAttribute("data-zoom"));
+    if (!panel) return;
+    busy = true; lastCard = card; current = panel;
+    var pt = place(panel, card);
+    panel.hidden = false; panel.setAttribute("aria-hidden", "false");
+    if (main && !reduce) {
+      main.style.transformOrigin = pt.x + "px " + (pt.y + window.scrollY) + "px";
+      main.classList.add("cz-zooming");
+    }
+    panel.getBoundingClientRect(); // commit the start state before animating
+    requestAnimationFrame(function () {
+      panel.classList.add("is-open");
+      if (main && !reduce) main.style.transform = "scale(1.8)";
+    });
+    document.body.classList.add("cz-lock");
+    if (push !== false && history.pushState) history.pushState({ cz: panel.id }, "", "#" + panel.id.replace(/^cz-/, ""));
+    setTimeout(function () {
+      if (main) { main.classList.remove("cz-zooming"); main.style.transform = ""; }
+      var back = panel.querySelector(".cz-back"); if (back) back.focus({ preventScroll: true });
+      busy = false;
+    }, DUR + 50);
+  }
+  function close(fromHistory) {
+    if (busy || !current) return;
+    busy = true;
+    var panel = current;
+    var pt = place(panel, lastCard);
+    if (main && !reduce) {
+      main.style.transformOrigin = pt.x + "px " + (pt.y + window.scrollY) + "px";
+      main.style.transform = "scale(1.8)";
+      main.getBoundingClientRect();
+      main.classList.add("cz-zooming");
+      requestAnimationFrame(function () { main.style.transform = "scale(1)"; });
+    }
+    panel.classList.remove("is-open");
+    setTimeout(function () {
+      panel.hidden = true; panel.setAttribute("aria-hidden", "true");
+      if (main) { main.classList.remove("cz-zooming"); main.style.transform = ""; main.style.transformOrigin = ""; }
+      document.body.classList.remove("cz-lock");
+      if (lastCard) lastCard.focus({ preventScroll: true });
+      current = null; busy = false;
+    }, DUR + 50);
+    if (!fromHistory && history.state && history.state.cz) history.back();
+  }
+  cards.forEach(function (card) { card.addEventListener("click", function () { open(card); }); });
+  document.querySelectorAll(".cat-zoom .cz-back").forEach(function (b) { b.addEventListener("click", function () { close(false); }); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && current) close(false); });
+  window.addEventListener("popstate", function () { if (current) close(true); });
+  window.addEventListener("resize", function () { if (current && lastCard) place(current, lastCard); });
+  // Opening a deep link such as products.html#oprema shows that panel straight away
+  var hash = location.hash.replace("#", "");
+  if (hash) {
+    var target = document.querySelector('.cat-card[data-zoom="cz-' + hash + '"]');
+    if (target) { var d = DUR; DUR = 0; reduce = true; open(target, false); DUR = d; reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches; }
+  }
+})();
