@@ -484,6 +484,14 @@
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var current = null, lastCard = null, busy = false;
   var DUR = reduce ? 0 : 800;
+  var root = document.documentElement;
+  var gutterOK = window.CSS && CSS.supports && CSS.supports("scrollbar-gutter: stable") && CSS.supports("selector(:has(a))");
+  function lock() {
+    // older browsers without scrollbar-gutter: pad the body by the scrollbar width instead
+    if (!gutterOK) { var sb = window.innerWidth - root.clientWidth; if (sb > 0) document.body.style.paddingRight = sb + "px"; }
+    document.body.classList.add("cz-lock");
+  }
+  function unlock() { document.body.classList.remove("cz-lock"); document.body.style.paddingRight = ""; root.style.background = ""; }
 
   function headerBottom() { return header ? Math.max(0, header.getBoundingClientRect().bottom) : 0; }
   function place(panel, card) {
@@ -514,10 +522,12 @@
       panel.classList.add("is-open");
       if (main && !reduce) main.style.transform = "scale(1.8)";
     });
-    document.body.classList.add("cz-lock");
+    lock();
     if (push !== false && history.pushState) history.pushState({ cz: panel.id }, "", "#" + panel.id.replace(/^cz-/, ""));
     setTimeout(function () {
       if (main) { main.classList.remove("cz-zooming"); main.style.transform = ""; }
+      // paint the reserved scrollbar strip in the panel colour so the panel reads as full-width
+      root.style.background = getComputedStyle(panel).backgroundColor;
       var back = panel.querySelector(".cz-back"); if (back) back.focus({ preventScroll: true });
       busy = false;
     }, DUR + 50);
@@ -534,11 +544,12 @@
       main.classList.add("cz-zooming");
       requestAnimationFrame(function () { main.style.transform = "scale(1)"; });
     }
+    root.style.background = "";
     panel.classList.remove("is-open");
     setTimeout(function () {
       panel.hidden = true; panel.setAttribute("aria-hidden", "true");
       if (main) { main.classList.remove("cz-zooming"); main.style.transform = ""; main.style.transformOrigin = ""; }
-      document.body.classList.remove("cz-lock");
+      unlock();
       if (lastCard) lastCard.focus({ preventScroll: true });
       current = null; busy = false;
     }, DUR + 50);
