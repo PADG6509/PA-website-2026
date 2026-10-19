@@ -2442,3 +2442,13 @@ body.cat-chem .sl-row:hover .sl-arrow { color: #1F1F1F; }
   .hero .wrap { row-gap: clamp(2rem, 5vw, 4rem); }
   .hero-banner-pfas { order: 3; }
 }
+
+/* Home page category cards (Oct 2026): only the button opens the category; the
+   card keeps its hover lift. No number, no coloured divider; button at 50% until hovered.
+   Scoped to the home page — the Products page cards are styled separately. */
+.supply-grid-home .supply-num { display: none; }
+.supply-grid-home .supply-body { border-top: 0; }
+.supply-grid-home .supply-go { text-decoration: none; background: color-mix(in srgb, var(--cat) 50%, var(--panel)); transition: gap 0.25s ease, background 0.25s ease; }
+.supply-grid-home .supply-go:hover, .supply-grid-home .supply-go:focus-visible { background: var(--cat); }
+.supply-grid-home .supply-go { color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.35); }
+.supply-grid-home .supply-go svg { filter: drop-shadow(0 1px 1.5px rgba(0,0,0,0.35)); }
