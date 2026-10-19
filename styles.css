@@ -2282,7 +2282,7 @@ body[class*="cat-"] .eq-chips a { border-radius: 8px; }
 .eq-photo img.eq-photo-rounded { border-radius: 10px; }
 
 /* Sterilization subcategory hero: products on light background, like Extraction arms (v64) */
-.hero-sterilization { background-color: #ECEBE6; background-image: url("assets/products/sterilization-hero.jpg"); background-position: right center; }
+.hero-sterilization { background-color: #ECEBE6; background-image: url("assets/products/sterilization-hero.jpg"); background-position: right center; min-height: clamp(400px, 34vw, 520px); }
 .hero-spectrophotometry { background-color: #fff; background-image: url("assets/products/spectrophotometry-hero.jpg"); background-position: right center; }
 .hero-standards { background-color: #e8e9ec; background-image: url("assets/products/standards-hero.jpg"); background-position: center 70%; }
 .hero-consumables { background-color: #ECEBE6; background-image: url("assets/products/consumables-hero.jpg"); background-position: right center; }
@@ -2290,7 +2290,7 @@ body[class*="cat-"] .eq-chips a { border-radius: 8px; }
 .eq-body .eq-sub { font-size: 1rem; font-weight: 700; margin: 0.9rem 0 0.25rem; color: var(--ink); }
 .eq-photo.eq-pic img { border-radius: 10px; }
 /* Supplier logos instead of product photos (e.g. Standards & Reference Materials) */
-.eq-photo.eq-logo img { max-width: min(100%, 280px); max-height: 130px; }
+.eq-photo.eq-logo img { width: 260px; max-width: 100%; height: auto; max-height: none; }
 .eq-body p.eq-ext { text-align: left; font-size: 0.95rem; }
 .eq-body p.eq-ext a { color: var(--cat-text, var(--teal)); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 @media (max-width: 700px) { .hero-sterilization { background-position: 78% center; } }
@@ -2330,7 +2330,7 @@ body[class*="cat-"] .eq-chips a { border-radius: 8px; }
   .hero-spectrophotometry { background-position: 92% top; }
   .hero-standards { background-position: 60% top; }
   .hero-consumables { background-image: url("assets/products/consumables-hero-mobile.jpg"); background-size: 100% auto; background-position: center top; }
-  .eq-photo.eq-logo img { max-width: min(100%, 220px); max-height: 100px; }
+  .eq-photo.eq-logo img { width: 200px; }
 }
 
 /* Climate chambers subcategory hero (whole car in frame) */
