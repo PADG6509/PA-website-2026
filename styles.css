@@ -2418,3 +2418,27 @@ body.cat-chem .sl-row:hover .sl-arrow { color: #1F1F1F; }
 .form-status.is-error { background: rgba(249,160,27,0.18); color: #5a3b00; border-left: 4px solid #F9A01B; }
 .hp-field { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
 .contact-form button[disabled] { opacity: 0.6; cursor: wait; }
+
+/* ---------- Home banner: PFAS event (Oct 2026) ----------
+   Banner height runs from the top of the hero copy down to the line
+   above the stats row (stats moved into their own grid row). */
+.hero .wrap { align-items: stretch; row-gap: 0; }
+.hero .wrap > .stat-row { grid-column: 1; margin-top: 0; }
+.hero .wrap > div:first-child { padding-bottom: 2.5rem; align-self: center; }
+.hero-banner-pfas { container-type: inline-size; min-height: 300px; align-self: stretch; }
+.pfas-art { display: block; background: #D5CFBF; }
+.pfas-molecule { position: absolute; top: 3%; right: -3%; width: 74%; height: auto; pointer-events: none; }
+.pfas-partner { position: absolute; top: 5cqw; left: 5.5cqw; width: 24cqw; height: auto; }
+.pfas-content { position: absolute; left: 6cqw; right: 6cqw; bottom: 5.5cqw; display: flex; flex-direction: column; align-items: flex-start; }
+.pfas-title { display: block; font-family: var(--font-display); font-weight: 500; font-size: 20cqw; line-height: 0.9; letter-spacing: 0.2em; color: var(--purple); }
+.pfas-rule { display: block; width: 16cqw; height: 3px; margin: 2.6cqw 0 2.4cqw; background: var(--amber); border-radius: 2px; }
+.pfas-sub { display: block; max-width: 64cqw; font-family: var(--font-display); font-weight: 700; font-size: clamp(0.85rem, 4.4cqw, 1.3rem); line-height: 1.2; letter-spacing: 0.03em; text-transform: uppercase; color: var(--purple); }
+.pfas-meta { display: block; max-width: 66cqw; margin-top: 2.4cqw; font-family: var(--font-display); font-size: clamp(0.75rem, 3.3cqw, 1rem); color: var(--teal-dark); }
+.pfas-meta b, .pfas-meta span { display: block; }
+.pfas-meta b { font-weight: 700; }
+@media (max-width: 900px) {
+  .hero .wrap > div:first-child { padding-bottom: 0; }
+  .hero .wrap > .stat-row { margin-top: 2.5rem; }
+  .hero .wrap { row-gap: clamp(2rem, 5vw, 4rem); }
+  .hero-banner-pfas { order: 3; }
+}
