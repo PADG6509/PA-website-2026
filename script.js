@@ -425,3 +425,52 @@
     }
   });
 })();
+
+// Contact form: send via send.php (cPanel) and show an inline status message.
+(function () {
+  var form = document.getElementById("contact-form");
+  if (!form) return;
+  var status = document.getElementById("form-status");
+  var btn = form.querySelector('button[type="submit"]');
+  var ts = form.querySelector('input[name="ts"]');
+  var langField = form.querySelector('input[name="lang"]');
+  if (ts) ts.value = Date.now();
+  function lang() { return document.documentElement.lang === "sr" || /[?&]lang=sr/.test(location.search) ? "sr" : "en"; }
+  var T = {
+    sending: { en: "Sending…", sr: "Slanje…" },
+    ok:      { en: "Thank you — your message has been sent. We will reply as soon as possible.",
+               sr: "Hvala — Vaša poruka je poslata. Odgovorićemo Vam u najkraćem roku." },
+    invalid: { en: "Please fill in your name, a valid email address and the message.",
+               sr: "Molimo Vas da unesete ime, ispravnu e-mail adresu i poruku." },
+    fail:    { en: "The message could not be sent. Please write to us directly at proanalytica@proanalytica.com.",
+               sr: "Poruka nije poslata. Molimo Vas da nam pišete direktno na proanalytica@proanalytica.com." }
+  };
+  function show(kind, key) {
+    status.className = "form-status is-" + kind;
+    status.textContent = T[key][lang()];
+    status.hidden = false;
+  }
+  // Fallback without JS: send.php redirects back with ?sent=1 / ?error=...
+  if (/[?&]sent=1/.test(location.search)) show("ok", "ok");
+  else if (/[?&]error=invalid/.test(location.search)) show("error", "invalid");
+  else if (/[?&]error=/.test(location.search)) show("error", "fail");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (langField) langField.value = lang();
+    var label = btn.textContent;
+    btn.disabled = true; btn.textContent = T.sending[lang()];
+    status.hidden = true;
+    fetch(form.getAttribute("action"), {
+      method: "POST", body: new FormData(form),
+      headers: { "X-Requested-With": "XMLHttpRequest" }
+    })
+      .then(function (r) { return r.json().catch(function () { return { ok: false, error: "mail" }; }); })
+      .then(function (res) {
+        if (res.ok) { form.reset(); if (ts) ts.value = Date.now(); show("ok", "ok"); }
+        else show("error", res.error === "invalid" ? "invalid" : "fail");
+      })
+      .catch(function () { show("error", "fail"); })
+      .then(function () { btn.disabled = false; btn.textContent = label; });
+  });
+})();

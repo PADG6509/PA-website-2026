@@ -167,7 +167,10 @@
       <div>
 
         <div class="axis-rule"><span data-en="Send a message" data-sr="Pošaljite poruku">Send a message</span></div>
-        <form class="contact-form" action="mailto:proanalytica@proanalytica.com" method="post" enctype="text/plain">
+        <form class="contact-form" id="contact-form" action="send.php" method="post">
+          <input type="hidden" name="lang" value="en">
+          <input type="hidden" name="ts" value="">
+          <div class="hp-field" aria-hidden="true"><label for="website">Website</label><input type="text" id="website" name="website" tabindex="-1" autocomplete="off"></div>
           <div class="field">
             <label for="name" data-en="Name" data-sr="Ime i prezime">Name</label>
             <input type="text" id="name" name="name" required>
@@ -189,9 +192,10 @@
           <div>
             <button type="submit" class="btn btn-primary" data-en="Send message" data-sr="Pošaljite poruku">Send message</button>
           </div>
-          <p class="form-note" data-en="This form opens your email client to send the message directly to our team."
-             data-sr="Ovaj formular otvara vaš e-mail klijent i šalje poruku direktno našem timu.">
-            This form opens your email client to send the message directly to our team.
+          <div class="form-status" id="form-status" role="status" aria-live="polite" hidden></div>
+          <p class="form-note" data-en="Your details are used only to reply to your enquiry."
+             data-sr="Vaše podatke koristimo isključivo da bismo odgovorili na Vaš upit.">
+            Your details are used only to reply to your enquiry.
           </p>
         </form>
       </div>
