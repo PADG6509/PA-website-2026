@@ -1,0 +1,42 @@
+# Automatski deploy sajta na cPanel (www.proanalytica.com) preko FTPS-a.
+# Šalje samo fajlove koji su se promenili od prethodnog deploy-a.
+#
+# FAZA 1 (sada): pokreće se SAMO ručno (Actions → Deploy na cPanel → Run workflow),
+#   da ne bi slučajno otišlo na server pre nego što obrišemo stari sajt.
+# FAZA 2 (posle migracije): otkomentarisati "push" ispod, pa svaki Push ide na sajt.
+
+name: Deploy na cPanel
+
+on:
+  workflow_dispatch:
+  # push:
+  #   branches: [main]
+
+concurrency:
+  group: deploy-cpanel
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Preuzmi kod
+        uses: actions/checkout@v4
+
+      - name: Pošalji izmene na server
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+          # FTP nalog je zaključan na public_html/proanalytica.rs, pa je ovo koren tog foldera
+          server-dir: ./
+          exclude: |
+            **/.git*
+            **/.git*/**
+            .github/**
+            _materijal/**
+            Claude outputs/**
+            **/*.md
