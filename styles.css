@@ -2285,6 +2285,10 @@ body[class*="cat-"] .eq-chips a { border-radius: 8px; }
 .hero-sterilization { background-color: #ECEBE6; background-image: url("assets/products/sterilization-hero.jpg"); background-position: right center; }
 .hero-spectrophotometry { background-color: #fff; background-image: url("assets/products/spectrophotometry-hero.jpg"); background-position: right center; }
 .hero-standards { background-color: #e8e9ec; background-image: url("assets/products/standards-hero.jpg"); background-position: center 70%; }
+.hero-consumables { background-color: #ECEBE6; background-image: url("assets/products/consumables-hero.jpg"); background-position: right center; }
+/* Sub-headings inside a product description; product photos with their own background */
+.eq-body .eq-sub { font-size: 1rem; font-weight: 700; margin: 0.9rem 0 0.25rem; color: var(--ink); }
+.eq-photo.eq-pic img { border-radius: 10px; }
 /* Supplier logos instead of product photos (e.g. Standards & Reference Materials) */
 .eq-photo.eq-logo img { max-width: min(100%, 280px); max-height: 130px; }
 .eq-body p.eq-ext { text-align: left; font-size: 0.95rem; }
@@ -2325,6 +2329,7 @@ body[class*="cat-"] .eq-chips a { border-radius: 8px; }
   .hero-extraction-arms, .hero-neutralization, .hero-digestion { background-position: 88% top; }
   .hero-spectrophotometry { background-position: 92% top; }
   .hero-standards { background-position: 60% top; }
+  .hero-consumables { background-image: url("assets/products/consumables-hero-mobile.jpg"); background-size: 100% auto; background-position: center top; }
   .eq-photo.eq-logo img { max-width: min(100%, 220px); max-height: 100px; }
 }
 
