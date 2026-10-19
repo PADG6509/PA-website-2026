@@ -2526,8 +2526,6 @@ body.cat-chem .sl-row:hover .sl-arrow { color: #1F1F1F; }
 .cz-more { background: #fff; color: var(--cz-bg); border: 1.5px solid #fff; }
 .cz-more:hover, .cz-more:focus-visible { gap: 0.95rem; }
 body.cz-lock { overflow: hidden; }
-/* keep the scrollbar's space reserved so the page doesn't jump when scrolling is locked */
-html:has(.cat-zoom) { scrollbar-gutter: stable; }
 main.cz-zooming { transition: transform 0.8s cubic-bezier(.7,0,.2,1); }
 @media (max-width: 760px) {
   .cz-main { grid-template-columns: auto 1fr; align-items: start; }

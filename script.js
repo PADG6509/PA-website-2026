@@ -485,13 +485,16 @@
   var current = null, lastCard = null, busy = false;
   var DUR = reduce ? 0 : 800;
   var root = document.documentElement;
-  var gutterOK = window.CSS && CSS.supports && CSS.supports("scrollbar-gutter: stable") && CSS.supports("selector(:has(a))");
+  // The page "camera" zoom is only used on desktop: on phones a scaled page widens the
+  // layout viewport for a moment, which made the panel text appear too wide and then snap.
+  var zoomPage = !reduce && window.matchMedia && window.matchMedia("(min-width: 901px) and (hover: hover)").matches;
   function lock() {
-    // older browsers without scrollbar-gutter: pad the body by the scrollbar width instead
-    if (!gutterOK) { var sb = window.innerWidth - root.clientWidth; if (sb > 0) document.body.style.paddingRight = sb + "px"; }
+    // hiding the scrollbar would widen the page; pad the body by the scrollbar width instead
+    var sb = window.innerWidth - root.clientWidth;
+    if (sb > 0) document.body.style.paddingRight = sb + "px";
     document.body.classList.add("cz-lock");
   }
-  function unlock() { document.body.classList.remove("cz-lock"); document.body.style.paddingRight = ""; root.style.background = ""; }
+  function unlock() { document.body.classList.remove("cz-lock"); document.body.style.paddingRight = ""; }
 
   function headerBottom() { return header ? Math.max(0, header.getBoundingClientRect().bottom) : 0; }
   function place(panel, card) {
@@ -512,22 +515,20 @@
     if (!panel) return;
     busy = true; lastCard = card; current = panel;
     var pt = place(panel, card);
+    lock();
     panel.hidden = false; panel.setAttribute("aria-hidden", "false");
-    if (main && !reduce) {
+    if (main && zoomPage) {
       main.style.transformOrigin = pt.x + "px " + (pt.y + window.scrollY) + "px";
       main.classList.add("cz-zooming");
     }
     panel.getBoundingClientRect(); // commit the start state before animating
     requestAnimationFrame(function () {
       panel.classList.add("is-open");
-      if (main && !reduce) main.style.transform = "scale(1.8)";
+      if (main && zoomPage) main.style.transform = "scale(1.8)";
     });
-    lock();
     if (push !== false && history.pushState) history.pushState({ cz: panel.id }, "", "#" + panel.id.replace(/^cz-/, ""));
     setTimeout(function () {
       if (main) { main.classList.remove("cz-zooming"); main.style.transform = ""; }
-      // paint the reserved scrollbar strip in the panel colour so the panel reads as full-width
-      root.style.background = getComputedStyle(panel).backgroundColor;
       var back = panel.querySelector(".cz-back"); if (back) back.focus({ preventScroll: true });
       busy = false;
     }, DUR + 50);
@@ -537,14 +538,13 @@
     busy = true;
     var panel = current;
     var pt = place(panel, lastCard);
-    if (main && !reduce) {
+    if (main && zoomPage) {
       main.style.transformOrigin = pt.x + "px " + (pt.y + window.scrollY) + "px";
       main.style.transform = "scale(1.8)";
       main.getBoundingClientRect();
       main.classList.add("cz-zooming");
       requestAnimationFrame(function () { main.style.transform = "scale(1)"; });
     }
-    root.style.background = "";
     panel.classList.remove("is-open");
     setTimeout(function () {
       panel.hidden = true; panel.setAttribute("aria-hidden", "true");
@@ -564,6 +564,6 @@
   var hash = location.hash.replace("#", "");
   if (hash) {
     var target = document.querySelector('.cat-card[data-zoom="cz-' + hash + '"]');
-    if (target) { var d = DUR; DUR = 0; reduce = true; open(target, false); DUR = d; reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches; }
+    if (target) { var d = DUR, z = zoomPage; DUR = 0; zoomPage = false; open(target, false); DUR = d; zoomPage = z; }
   }
 })();
