@@ -2284,6 +2284,11 @@ body[class*="cat-"] .eq-chips a { border-radius: 8px; }
 /* Sterilization subcategory hero: products on light background, like Extraction arms (v64) */
 .hero-sterilization { background-color: #ECEBE6; background-image: url("assets/products/sterilization-hero.jpg"); background-position: right center; }
 .hero-spectrophotometry { background-color: #fff; background-image: url("assets/products/spectrophotometry-hero.jpg"); background-position: right center; }
+.hero-standards { background-color: #e8e9ec; background-image: url("assets/products/standards-hero.jpg"); background-position: center 70%; }
+/* Supplier logos instead of product photos (e.g. Standards & Reference Materials) */
+.eq-photo.eq-logo img { max-width: min(100%, 280px); max-height: 130px; }
+.eq-body p.eq-ext { text-align: left; font-size: 0.95rem; }
+.eq-body p.eq-ext a { color: var(--cat-text, var(--teal)); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 @media (max-width: 700px) { .hero-sterilization { background-position: 78% center; } }
 
 /* Bulleted spec list inside product descriptions */
@@ -2319,6 +2324,8 @@ body[class*="cat-"] .eq-chips a { border-radius: 8px; }
   .hero-safety-cabinets { background-image: url("assets/products/safety-cabinets-hero-mobile.jpg"); background-size: 100% auto; background-position: center top; }
   .hero-extraction-arms, .hero-neutralization, .hero-digestion { background-position: 88% top; }
   .hero-spectrophotometry { background-position: 92% top; }
+  .hero-standards { background-position: 60% top; }
+  .eq-photo.eq-logo img { max-width: min(100%, 220px); max-height: 100px; }
 }
 
 /* Climate chambers subcategory hero (whole car in frame) */
