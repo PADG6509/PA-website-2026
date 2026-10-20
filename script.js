@@ -2,7 +2,7 @@
   "use strict";
 
   var params = new URLSearchParams(window.location.search);
-  var lang = params.get("lang") === "sr" ? "sr" : "en";
+  var lang = params.get("lang") === "en" ? "en" : "sr";   // default: srpski
 
   function applyLang(lang) {
     document.documentElement.setAttribute("lang", lang);
@@ -435,7 +435,7 @@
   var ts = form.querySelector('input[name="ts"]');
   var langField = form.querySelector('input[name="lang"]');
   if (ts) ts.value = Date.now();
-  function lang() { return document.documentElement.lang === "sr" || /[?&]lang=sr/.test(location.search) ? "sr" : "en"; }
+  function lang() { return document.documentElement.lang === "en" || /[?&]lang=en/.test(location.search) ? "en" : "sr"; }
   var T = {
     sending: { en: "Sending…", sr: "Slanje…" },
     ok:      { en: "Thank you — your message has been sent. We will reply as soon as possible.",

@@ -1,0 +1,100 @@
+# ============================================================
+#  www.proanalytica.com — pravila servera (Apache / cPanel)
+#  Fajl ide na GitHub i automatski na server (deploy).
+# ============================================================
+
+Options -Indexes
+DirectoryIndex index.html
+AddDefaultCharset UTF-8
+ErrorDocument 404 /index.html
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# 1) .well-known (obnova SSL sertifikata) — nikad ne preusmeravati
+RewriteRule ^\.well-known/ - [L]
+
+# 2) Sve na https://www.proanalytica.com (http, bez www, proanalytica.rs)
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} !^www\.proanalytica\.com$ [NC]
+RewriteRule ^(.*)$ https://www.proanalytica.com/$1 [R=301,L]
+
+# 3) Stare adrese (stari sajt: /sr/ i /cir/ = srpski, /en/ = engleski)
+
+# Početna
+RewriteRule ^(?:sr|cir)/(?:index(?:\.html)?)?$ /index.html?lang=sr [R=301,L]
+RewriteRule ^en/(?:index(?:\.html)?)?$ /index.html?lang=en [R=301,L]
+# O nama
+RewriteRule ^(?:sr|cir)/o-nama(?:\.html|/|/index\.html)?$ /about.html?lang=sr [R=301,L]
+RewriteRule ^en/o-nama(?:\.html|/|/index\.html)?$ /about.html?lang=en [R=301,L]
+# Kontakt
+RewriteRule ^(?:sr|cir)/kontakt(?:\.html|/|/index\.html)?$ /contact.html?lang=sr [R=301,L]
+RewriteRule ^en/kontakt(?:\.html|/|/index\.html)?$ /contact.html?lang=en [R=301,L]
+# Korisni linkovi -> DEMOLAB
+RewriteRule ^(?:sr|cir)/korisni-linkovi(?:\.html|/|/index\.html)?$ /demolab.html?lang=sr [R=301,L]
+RewriteRule ^en/korisni-linkovi(?:\.html|/|/index\.html)?$ /demolab.html?lang=en [R=301,L]
+# Vesti i događaji -> DEMOLAB
+RewriteRule ^(?:sr|cir)/(?:vesti|dogadjaji)(?:/.*)?(?:\.html|/|/index\.html)?$ /demolab.html?lang=sr [R=301,L]
+RewriteRule ^en/(?:vesti|dogadjaji)(?:/.*)?(?:\.html|/|/index\.html)?$ /demolab.html?lang=en [R=301,L]
+RewriteRule ^(?:sr|cir)/servisno-aplikativna-podrska-primljen-zahtev(?:\.html|/|/index\.html)?$ /contact.html?lang=sr [R=301,L]
+RewriteRule ^en/servisno-aplikativna-podrska-primljen-zahtev(?:\.html|/|/index\.html)?$ /contact.html?lang=en [R=301,L]
+# Transport opasnog tereta -> Kontakt
+RewriteRule ^(?:sr|cir)/proizvodi-i-usluge/(?:usluge/)?transport-opasnog-tereta(?:\.html|/|/index\.html)?$ /contact.html?lang=sr [R=301,L]
+RewriteRule ^en/proizvodi-i-usluge/(?:usluge/)?transport-opasnog-tereta(?:\.html|/|/index\.html)?$ /contact.html?lang=en [R=301,L]
+# Hemija
+RewriteRule ^(?:sr|cir)/proizvodi-i-usluge/hemija/laboratorijske-i-analiticke-hemikalije(?:\.html|/|/index\.html)?$ /product-chemicals-chemicals.html?lang=sr [R=301,L]
+RewriteRule ^en/proizvodi-i-usluge/hemija/laboratorijske-i-analiticke-hemikalije(?:\.html|/|/index\.html)?$ /product-chemicals-chemicals.html?lang=en [R=301,L]
+RewriteRule ^(?:sr|cir)/proizvodi-i-usluge/hemija/standardni-i-referentni-materijali(?:\.html|/|/index\.html)?$ /product-chemicals-standards.html?lang=sr [R=301,L]
+RewriteRule ^en/proizvodi-i-usluge/hemija/standardni-i-referentni-materijali(?:\.html|/|/index\.html)?$ /product-chemicals-standards.html?lang=en [R=301,L]
+RewriteRule ^(?:sr|cir)/proizvodi-i-usluge/hemija(?:/.*)?(?:\.html|/|/index\.html)?$ /product-chemicals.html?lang=sr [R=301,L]
+RewriteRule ^en/proizvodi-i-usluge/hemija(?:/.*)?(?:\.html|/|/index\.html)?$ /product-chemicals.html?lang=en [R=301,L]
+# Laboratorijska oprema
+RewriteRule ^(?:sr|cir)/proizvodi-i-usluge/laboratorijska-oprema-i-potrosni-materijal/potrosni-materijal(?:/.*)?(?:\.html|/|/index\.html)?$ /product-chemicals-consumables.html?lang=sr [R=301,L]
+RewriteRule ^en/proizvodi-i-usluge/laboratorijska-oprema-i-potrosni-materijal/potrosni-materijal(?:/.*)?(?:\.html|/|/index\.html)?$ /product-chemicals-consumables.html?lang=en [R=301,L]
+RewriteRule ^(?:sr|cir)/proizvodi-i-usluge/laboratorijska-oprema-i-potrosni-materijal/instrumentacija/industrija/elementar-gmbh(?:\.html|/|/index\.html)?$ /product-equipment-elemental.html?lang=sr [R=301,L]
+RewriteRule ^en/proizvodi-i-usluge/laboratorijska-oprema-i-potrosni-materijal/instrumentacija/industrija/elementar-gmbh(?:\.html|/|/index\.html)?$ /product-equipment-elemental.html?lang=en [R=301,L]
+RewriteRule ^(?:sr|cir)/proizvodi-i-usluge/laboratorijska-oprema-i-potrosni-materijal/instrumentacija/(?:industrija/teiInstruments|zivotna-sredina/te-instruments)(?:\.html|/|/index\.html)?$ /product-equipment-elemental.html?lang=sr [R=301,L]
+RewriteRule ^en/proizvodi-i-usluge/laboratorijska-oprema-i-potrosni-materijal/instrumentacija/(?:industrija/teiInstruments|zivotna-sredina/te-instruments)(?:\.html|/|/index\.html)?$ /product-equipment-elemental.html?lang=en [R=301,L]
+RewriteRule ^(?:sr|cir)/proizvodi-i-usluge/laboratorijska-oprema-i-potrosni-materijal/instrumentacija/[^/]+/milestone-srl(?:\.html|/|/index\.html)?$ /product-equipment-digestion.html?lang=sr [R=301,L]
+RewriteRule ^en/proizvodi-i-usluge/laboratorijska-oprema-i-potrosni-materijal/instrumentacija/[^/]+/milestone-srl(?:\.html|/|/index\.html)?$ /product-equipment-digestion.html?lang=en [R=301,L]
+RewriteRule ^(?:sr|cir)/proizvodi-i-usluge/laboratorijska-oprema-i-potrosni-materijal/instrumentacija/priprema-uzoraka-za-analiticke-metode(?:/.*)?(?:\.html|/|/index\.html)?$ /product-equipment-sample-prep.html?lang=sr [R=301,L]
+RewriteRule ^en/proizvodi-i-usluge/laboratorijska-oprema-i-potrosni-materijal/instrumentacija/priprema-uzoraka-za-analiticke-metode(?:/.*)?(?:\.html|/|/index\.html)?$ /product-equipment-sample-prep.html?lang=en [R=301,L]
+RewriteRule ^(?:sr|cir)/proizvodi-i-usluge/laboratorijska-oprema-i-potrosni-materijal/instrumentacija/ispitivanje-materijala(?:/.*)?(?:\.html|/|/index\.html)?$ /product-equipment-climate-chambers.html?lang=sr [R=301,L]
+RewriteRule ^en/proizvodi-i-usluge/laboratorijska-oprema-i-potrosni-materijal/instrumentacija/ispitivanje-materijala(?:/.*)?(?:\.html|/|/index\.html)?$ /product-equipment-climate-chambers.html?lang=en [R=301,L]
+RewriteRule ^(?:sr|cir)/proizvodi-i-usluge/laboratorijska-oprema-i-potrosni-materijal/instrumentacija/(?:industrija/ametec-spectro|zivotna-sredina/ametek-spectroscientific|zivotna-sredina/macherey-nagel)(?:\.html|/|/index\.html)?$ /product-equipment-spectrophotometry.html?lang=sr [R=301,L]
+RewriteRule ^en/proizvodi-i-usluge/laboratorijska-oprema-i-potrosni-materijal/instrumentacija/(?:industrija/ametec-spectro|zivotna-sredina/ametek-spectroscientific|zivotna-sredina/macherey-nagel)(?:\.html|/|/index\.html)?$ /product-equipment-spectrophotometry.html?lang=en [R=301,L]
+RewriteRule ^(?:sr|cir)/proizvodi-i-usluge/laboratorijska-oprema-i-potrosni-materijal/opsta-laboratorijska-oprema/systec-autoclaves(?:\.html|/|/index\.html)?$ /product-equipment-sterilization.html?lang=sr [R=301,L]
+RewriteRule ^en/proizvodi-i-usluge/laboratorijska-oprema-i-potrosni-materijal/opsta-laboratorijska-oprema/systec-autoclaves(?:\.html|/|/index\.html)?$ /product-equipment-sterilization.html?lang=en [R=301,L]
+RewriteRule ^(?:sr|cir)/proizvodi-i-usluge/laboratorijska-oprema-i-potrosni-materijal/opsta-laboratorijska-oprema(?:/.*)?(?:\.html|/|/index\.html)?$ /product-equipment-general-analysis.html?lang=sr [R=301,L]
+RewriteRule ^en/proizvodi-i-usluge/laboratorijska-oprema-i-potrosni-materijal/opsta-laboratorijska-oprema(?:/.*)?(?:\.html|/|/index\.html)?$ /product-equipment-general-analysis.html?lang=en [R=301,L]
+RewriteRule ^(?:sr|cir)/proizvodi-i-usluge/laboratorijska-oprema-i-potrosni-materijal(?:/.*)?(?:\.html|/|/index\.html)?$ /product-equipment.html?lang=sr [R=301,L]
+RewriteRule ^en/proizvodi-i-usluge/laboratorijska-oprema-i-potrosni-materijal(?:/.*)?(?:\.html|/|/index\.html)?$ /product-equipment.html?lang=en [R=301,L]
+# Laboratorijski nameštaj
+RewriteRule ^(?:sr|cir)/proizvodi-i-usluge/laboratorijski-namestaj/digestori(?:/.*)?(?:\.html|/|/index\.html)?$ /product-furniture-fume-hoods.html?lang=sr [R=301,L]
+RewriteRule ^en/proizvodi-i-usluge/laboratorijski-namestaj/digestori(?:/.*)?(?:\.html|/|/index\.html)?$ /product-furniture-fume-hoods.html?lang=en [R=301,L]
+RewriteRule ^(?:sr|cir)/proizvodi-i-usluge/laboratorijski-namestaj/(?:ekstrakcione-ruke|ekstracione-ruke)(?:/.*)?(?:\.html|/|/index\.html)?$ /product-furniture-extraction-arms.html?lang=sr [R=301,L]
+RewriteRule ^en/proizvodi-i-usluge/laboratorijski-namestaj/(?:ekstrakcione-ruke|ekstracione-ruke)(?:/.*)?(?:\.html|/|/index\.html)?$ /product-furniture-extraction-arms.html?lang=en [R=301,L]
+RewriteRule ^(?:sr|cir)/proizvodi-i-usluge/laboratorijski-namestaj/neutralizacione-jedinice-kyocera(?:\.html|/|/index\.html)?$ /product-furniture-neutralization.html?lang=sr [R=301,L]
+RewriteRule ^en/proizvodi-i-usluge/laboratorijski-namestaj/neutralizacione-jedinice-kyocera(?:\.html|/|/index\.html)?$ /product-furniture-neutralization.html?lang=en [R=301,L]
+RewriteRule ^(?:sr|cir)/proizvodi-i-usluge/laboratorijski-namestaj/sigurnosni-ormani-asecos(?:\.html|/|/index\.html)?$ /product-furniture-safety-cabinets.html?lang=sr [R=301,L]
+RewriteRule ^en/proizvodi-i-usluge/laboratorijski-namestaj/sigurnosni-ormani-asecos(?:\.html|/|/index\.html)?$ /product-furniture-safety-cabinets.html?lang=en [R=301,L]
+RewriteRule ^(?:sr|cir)/proizvodi-i-usluge/laboratorijski-namestaj/radni-stolovi(?:/.*)?(?:\.html|/|/index\.html)?$ /product-furniture-furniture.html?lang=sr [R=301,L]
+RewriteRule ^en/proizvodi-i-usluge/laboratorijski-namestaj/radni-stolovi(?:/.*)?(?:\.html|/|/index\.html)?$ /product-furniture-furniture.html?lang=en [R=301,L]
+RewriteRule ^(?:sr|cir)/proizvodi-i-usluge/laboratorijski-namestaj(?:/.*)?(?:\.html|/|/index\.html)?$ /product-furniture.html?lang=sr [R=301,L]
+RewriteRule ^en/proizvodi-i-usluge/laboratorijski-namestaj(?:/.*)?(?:\.html|/|/index\.html)?$ /product-furniture.html?lang=en [R=301,L]
+# Proizvodi i usluge (sve ostalo)
+RewriteRule ^(?:sr|cir)/proizvodi-i-usluge(?:/.*)?(?:\.html|/|/index\.html)?$ /products.html?lang=sr [R=301,L]
+RewriteRule ^en/proizvodi-i-usluge(?:/.*)?(?:\.html|/|/index\.html)?$ /products.html?lang=en [R=301,L]
+# Sve ostale stare adrese -> početna
+RewriteRule ^(?:sr|cir)/.*$ /index.html?lang=sr [R=301,L]
+RewriteRule ^en/.*$ /index.html?lang=en [R=301,L]
+RewriteRule ^(?:sr|cir|en)$ /index.html [R=301,L]
+
+# 4) Ostaci starog Gatsby sajta
+RewriteRule ^(?:page-data|static|icons)/ / [R=301,L]
+</IfModule>
+
+# Kompresija teksta (brže učitavanje)
+<IfModule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/html text/css application/javascript text/xml application/xml image/svg+xml
+</IfModule>
