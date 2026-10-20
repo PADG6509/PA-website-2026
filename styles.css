@@ -772,6 +772,13 @@ body.splash-locked { overflow: hidden; }
 }
 .feature-list h4 { margin: 0 0 0.25rem; font-size: 1.02rem; }
 .feature-list p { margin: 0; font-size: 0.95rem; color: var(--ink-sof); color: var(--ink-soft); }
+/* Home › Zašto Proanalytica: left text and right list end at the same height */
+.why-row { grid-template-columns: 1fr 1fr; align-items: stretch; }
+.why-row > div > p:last-child { margin-bottom: 0; }
+.why-row .feature-list { gap: 1.1rem; justify-content: space-between; height: 100%; }
+@media (max-width: 880px) {
+  .why-row .feature-list { gap: 1.5rem; justify-content: flex-start; height: auto; }
+}
 
 /* ---------- Contact ---------- */
 .contact-grid {
