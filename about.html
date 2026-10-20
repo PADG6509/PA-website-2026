@@ -86,6 +86,16 @@
       <div>
         <div class="axis-rule"><span data-en="What we do" data-sr="Čime se bavimo">What we do</span></div>
         <h2 data-en="From instrument selection to the reagent on the shelf." data-sr="Od izbora instrumenta do reagensa na polici.">From instrument selection to the reagent on the shelf.</h2>
+        <button type="button" class="team-collage js-gallery" data-gallery="o-nama"
+                data-photos="assets/about/gallery/onama-01.jpg,assets/about/gallery/onama-02.jpg,assets/about/gallery/onama-03.jpg,assets/about/gallery/onama-04.jpg,assets/about/gallery/onama-05.jpg,assets/about/gallery/onama-06.jpg"
+                aria-label="Galerija fotografija – Proanalytica tim">
+          <span class="tc-tile tc-t1"><img src="assets/about/gallery/onama-01.jpg" alt="" loading="lazy"></span>
+          <span class="tc-tile tc-t2"><img src="assets/about/gallery/onama-02.jpg" alt="" loading="lazy"></span>
+          <span class="tc-tile tc-t3"><img src="assets/about/gallery/onama-03.jpg" alt="" loading="lazy"></span>
+          <span class="tc-tile tc-t4"><img src="assets/about/gallery/onama-06.jpg" alt="" loading="lazy"></span>
+          <span class="tc-tile tc-t5"><img src="assets/about/gallery/onama-04.jpg" alt="" loading="lazy"></span>
+          <span class="tc-badge" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2.5" stroke="currentColor" stroke-width="1.8"/><circle cx="9" cy="10" r="1.7" fill="currentColor"/><path d="M4.5 17l5-4.5 3.5 3 2.5-2 4 3.5" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
+        </button>
       </div>
       <div>
         <p data-en="Proanalytica is a distributor specialised in laboratory equipment, analytical instruments, laboratory chemicals and consumables, and also a manufacturer of fume cupboards and laboratory furniture. Our commitment to top-level quality of the goods offered, prompt service and application support guarantees reliable analyses, long-term utilisation of equipment, and a favourable return on investment. Proanalytica is part of the international Lach-Ner group of companies, manufacturers and distributors of laboratory equipment and consumables."
@@ -285,6 +295,18 @@
   </section>
 
 </main>
+
+<!-- Gallery lightbox (team photos) -->
+<div class="gallery-lightbox" id="gallery-lightbox" aria-hidden="true">
+  <div class="gallery-lightbox-inner">
+    <button type="button" class="gallery-close" id="gallery-close" aria-label="Close gallery">&times;</button>
+    <button type="button" class="gallery-nav gallery-prev" id="gallery-prev" aria-label="Previous photo">&#8249;</button>
+    <img src="" alt="" class="gallery-image" id="gallery-image">
+    <button type="button" class="gallery-nav gallery-next" id="gallery-next" aria-label="Next photo">&#8250;</button>
+    <div class="gallery-counter" id="gallery-counter"></div>
+  </div>
+</div>
+
 
 <!-- PDF lightbox (certificates) -->
 <div class="pdf-lightbox" id="pdf-lightbox" aria-hidden="true">

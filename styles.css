@@ -2566,3 +2566,40 @@ main.cz-zooming { transition: transform 0.8s cubic-bezier(.7,0,.2,1); }
 @media (prefers-reduced-motion: reduce) {
   .cat-zoom, .cz-main, .cz-actions, main.cz-zooming, .cat-card, .cat-icon { transition: none !important; }
 }
+
+/* About › "Čime se bavimo": team photo collage that opens a gallery (Oct 2026) */
+.team-collage {
+  position: relative; display: block; width: 100%; max-width: 500px; aspect-ratio: 16 / 9.5;
+  margin-top: 2.2rem; padding: 0; border: 0; background: none; cursor: zoom-in;
+}
+.tc-tile {
+  position: absolute; display: block; overflow: hidden; border-radius: 12px; background: #fff;
+  border: 4px solid #fff; box-shadow: 0 14px 34px -12px rgba(23, 36, 44, 0.42);
+  transition: transform 0.55s cubic-bezier(.2, .8, .2, 1), box-shadow 0.4s ease, filter 0.4s ease;
+}
+.tc-tile img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.7s cubic-bezier(.2, .8, .2, 1); }
+.tc-t1 { left: 0;    top: 4%;    width: 50%; aspect-ratio: 16 / 9; transform: translate(34px, 16px) rotate(-5deg); z-index: 1; }
+.tc-t2 { right: 3%;  top: 0;     width: 40%; aspect-ratio: 4 / 3;  transform: translate(-34px, 18px) rotate(4deg);  z-index: 1; }
+.tc-t3 { left: 7%;   bottom: 0;  width: 37%; aspect-ratio: 4 / 3;  transform: translate(30px, -18px) rotate(3deg);  z-index: 2; }
+.tc-t4 { right: 0;   bottom: 3%; width: 36%; aspect-ratio: 4 / 3;  transform: translate(-36px, -16px) rotate(-4deg); z-index: 2; }
+.tc-t5 { left: 31%;  top: 27%;   width: 40%; aspect-ratio: 16 / 9; transform: scale(0.94) rotate(-1deg); z-index: 3;
+         box-shadow: 0 22px 46px -14px rgba(23, 36, 44, 0.55); }
+/* hover: the photos straighten and spread apart, the centre one comes forward */
+.team-collage:hover .tc-t1, .team-collage:focus-visible .tc-t1 { transform: translate(-14px, -10px) rotate(-2deg); }
+.team-collage:hover .tc-t2, .team-collage:focus-visible .tc-t2 { transform: translate(14px, -12px) rotate(2deg); }
+.team-collage:hover .tc-t3, .team-collage:focus-visible .tc-t3 { transform: translate(-12px, 12px) rotate(1deg); }
+.team-collage:hover .tc-t4, .team-collage:focus-visible .tc-t4 { transform: translate(14px, 12px) rotate(-1deg); }
+.team-collage:hover .tc-t5, .team-collage:focus-visible .tc-t5 { transform: scale(1.1) rotate(0deg); box-shadow: 0 30px 60px -16px rgba(23, 36, 44, 0.6); }
+.team-collage:hover .tc-tile img { transform: scale(1.06); }
+.tc-badge {
+  position: absolute; right: 13%; top: 44%; z-index: 4; width: 50px; height: 50px; border-radius: 50%;
+  display: grid; place-items: center; color: #fff; background: var(--teal);
+  box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.9), 0 10px 24px -6px rgba(0, 128, 127, 0.6);
+  transition: transform 0.45s cubic-bezier(.2, .8, .2, 1);
+}
+.tc-badge::after { content: ""; position: absolute; inset: -5px; border-radius: 50%; border: 2px solid var(--teal); opacity: 0; animation: tc-pulse 2.6s ease-out infinite; }
+@keyframes tc-pulse { 0% { transform: scale(0.9); opacity: 0.7; } 100% { transform: scale(1.6); opacity: 0; } }
+.team-collage:hover .tc-badge { transform: translateX(26px) scale(1.12) rotate(-8deg); }
+.team-collage:focus-visible { outline: 3px solid var(--teal); outline-offset: 8px; border-radius: 14px; }
+@media (max-width: 780px) { .team-collage { margin: 1.6rem auto 0.4rem; max-width: 420px; } }
+@media (prefers-reduced-motion: reduce) { .tc-tile, .tc-tile img, .tc-badge { transition: none; } .tc-badge::after { animation: none; } }
