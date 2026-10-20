@@ -488,13 +488,35 @@
   // The page "camera" zoom is only used on desktop: on phones a scaled page widens the
   // layout viewport for a moment, which made the panel text appear too wide and then snap.
   var zoomPage = !reduce && window.matchMedia && window.matchMedia("(min-width: 901px) and (hover: hover)").matches;
-  function lock() {
-    // hiding the scrollbar would widen the page; pad the body by the scrollbar width instead
-    var sb = window.innerWidth - root.clientWidth;
-    if (sb > 0) document.body.style.paddingRight = sb + "px";
-    document.body.classList.add("cz-lock");
+  // Desktop keeps its scrollbar (no layout jump); the page is simply held in place while a
+  // panel is open. Phones lock scrolling the usual way.
+  var desktop = zoomPage;
+  if (desktop) root.style.overflowY = "scroll";
+  var pinY = 0;
+  function pin() { if (window.scrollY !== pinY) window.scrollTo(0, pinY); }
+  function stopWheel(e) { if (!e.target.closest || !e.target.closest(".cz-scroll") || !canScroll(e.target.closest(".cz-scroll"), e.deltaY)) e.preventDefault(); }
+  function canScroll(el, dy) { return dy < 0 ? el.scrollTop > 0 : el.scrollTop + el.clientHeight < el.scrollHeight - 1; }
+  function stopKeys(e) {
+    var k = e.key;
+    if ((k === " " || k === "PageDown" || k === "PageUp" || k === "Home" || k === "End" || k === "ArrowDown" || k === "ArrowUp") && !/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) e.preventDefault();
   }
-  function unlock() { document.body.classList.remove("cz-lock"); document.body.style.paddingRight = ""; }
+  function lock() {
+    if (desktop) {
+      pinY = window.scrollY;
+      window.addEventListener("scroll", pin);
+      window.addEventListener("wheel", stopWheel, { passive: false });
+      window.addEventListener("keydown", stopKeys);
+      document.body.classList.add("cz-clip");
+    } else {
+      document.body.classList.add("cz-lock");
+    }
+  }
+  function unlock() {
+    window.removeEventListener("scroll", pin);
+    window.removeEventListener("wheel", stopWheel, { passive: false });
+    window.removeEventListener("keydown", stopKeys);
+    document.body.classList.remove("cz-lock", "cz-clip");
+  }
 
   function headerBottom() { return header ? Math.max(0, header.getBoundingClientRect().bottom) : 0; }
   function place(panel, card) {
