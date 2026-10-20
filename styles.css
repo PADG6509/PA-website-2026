@@ -777,6 +777,7 @@ body.splash-locked { overflow: hidden; }
 .why-row > div > p:last-child { margin-bottom: 0; }
 .why-row .feature-list { gap: 1.1rem; justify-content: space-between; height: 100%; }
 @media (max-width: 880px) {
+  .why-row { grid-template-columns: 1fr; }
   .why-row .feature-list { gap: 1.5rem; justify-content: flex-start; height: auto; }
 }
 
