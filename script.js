@@ -576,6 +576,7 @@
       current = null; busy = false;
     }, DUR + 50);
     if (!fromHistory && history.state && history.state.cz) history.back();
+    else if (!fromHistory && location.hash && history.replaceState) history.replaceState(null, "", location.pathname + location.search);
   }
   cards.forEach(function (card) { card.addEventListener("click", function () { open(card); }); });
   document.querySelectorAll(".cat-zoom .cz-back").forEach(function (b) { b.addEventListener("click", function () { close(false); }); });
