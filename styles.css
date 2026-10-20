@@ -2371,11 +2371,11 @@ body.cat-chem .sl-row:hover .sl-arrow { color: #1F1F1F; }
 @media (prefers-reduced-motion: reduce) { .sl-row, .sl-row::before, .sl-arrow { transition: none; } }
 
 
-/* About › Milestones: outlined year numerals (same style as category list numbers) */
+/* About › Milestones: solid year numerals in the grey of the Lach:ner map (Oct 2026) */
 .milestone-year {
   font-family: var(--font-display);
   font-size: 2.34rem; font-weight: 800; line-height: 1; letter-spacing: 0;
-  color: transparent; -webkit-text-stroke: 1.3px var(--teal);
+  color: #B0B0B0; -webkit-text-stroke: 0;
 }
 .milestone-year.milestone-lachner { color: #65ADE3; -webkit-text-stroke: 0; }
 @media (max-width: 700px) { .milestone-year { font-size: 2.1rem; } }
