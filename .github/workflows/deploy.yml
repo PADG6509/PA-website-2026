@@ -1,16 +1,15 @@
 # Automatski deploy sajta na cPanel (www.proanalytica.com) preko FTPS-a.
 # Šalje samo fajlove koji su se promenili od prethodnog deploy-a.
 #
-# FAZA 1 (sada): pokreće se SAMO ručno (Actions → Deploy na cPanel → Run workflow),
-#   da ne bi slučajno otišlo na server pre nego što obrišemo stari sajt.
-# FAZA 2 (posle migracije): otkomentarisati "push" ispod, pa svaki Push ide na sajt.
+# Pokreće se automatski posle svakog Push-a na main,
+# a može i ručno (Actions → Deploy na cPanel → Run workflow).
 
 name: Deploy na cPanel
 
 on:
   workflow_dispatch:
-  # push:
-  #   branches: [main]
+  push:
+    branches: [main]
 
 concurrency:
   group: deploy-cpanel
