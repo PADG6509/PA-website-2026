@@ -2539,6 +2539,27 @@ main.cz-zooming { transition: transform 0.8s cubic-bezier(.7,0,.2,1); }
   .cz-actions { flex-direction: column-reverse; align-items: stretch; }
   .cz-btn { justify-content: center; }
 }
+
+/* Desktop: the panel never gets its own scrollbar; text scales down on shorter screens */
+@media (min-width: 761px) {
+  .cz-scroll { overflow: hidden; }
+  .cz-text h2 { font-size: clamp(1.9rem, min(4.5vw, 6.4vh), 3.6rem); }
+  .cz-mark svg { width: clamp(7rem, min(20vw, 34vh), 17rem); }
+  .cz-main { padding-top: clamp(1rem, 4vh, 4rem); padding-bottom: clamp(0.5rem, 2vh, 2rem); }
+}
+@media (min-width: 761px) and (max-height: 820px) {
+  .cz-tag { margin-bottom: 0.9rem; }
+  .cz-body { font-size: 0.98rem; line-height: 1.55; margin-bottom: 1.1rem; }
+  .cz-subs a { padding: 0.28rem 0.7rem; font-size: 0.85rem; }
+  .cz-actions { padding-bottom: 1.2rem; padding-top: 0.5rem; }
+  .cz-dots { margin-top: 1.2rem; }
+}
+@media (min-width: 761px) and (max-height: 680px) {
+  .cz-tag { font-size: 1.05rem; margin-bottom: 0.6rem; }
+  .cz-body { font-size: 0.92rem; line-height: 1.5; margin-bottom: 0.9rem; }
+  .cz-subs { gap: 0.4rem; }
+  .cz-btn { padding: 0.6rem 1.1rem; }
+}
 @media (prefers-reduced-motion: reduce) {
   .cat-zoom, .cz-main, .cz-actions, main.cz-zooming, .cat-card, .cat-icon { transition: none !important; }
 }
