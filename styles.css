@@ -2612,3 +2612,11 @@ main.cz-zooming { transition: transform 0.8s cubic-bezier(.7,0,.2,1); }
 .team-collage:focus-visible { outline: 3px solid var(--teal); outline-offset: 8px; border-radius: 14px; }
 @media (max-width: 780px) { .team-collage { margin: 1.6rem auto 0.4rem; max-width: 420px; } }
 @media (prefers-reduced-motion: reduce) { .tc-tile, .tc-tile img, .tc-badge { transition: none; } .tc-badge::after { animation: none; } }
+
+/* Home hero stats (Oct 2026): shorter labels, Lach:ner line on one row on desktop,
+   stats zone 25% lower (padding above and below the row reduced) */
+.hero .wrap > .stat-row.home-stats { padding-top: 1.2rem; }
+.hero { padding-bottom: clamp(1.5rem, 3.6vw, 2.3rem); }
+@media (min-width: 901px) {
+  .home-stats .stat span { max-width: none; white-space: nowrap; }
+}
