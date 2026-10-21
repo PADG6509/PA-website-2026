@@ -100,12 +100,14 @@ AddOutputFilterByType DEFLATE text/html text/css application/javascript text/xml
 </IfModule>
 
 # Keš: HTML, CSS i JS browser uvek proverava kod servera (izmene se vide odmah),
-# slike i PDF-ovi se čuvaju 1 dan
+# slike i PDF-ovi se čuvaju 1 dan.
+# "no-transform" isključuje PageSpeed modul hostinga: on je menjao adrese slika
+# u *.pagespeed.ce.*.webp, koje su povremeno vraćale 404 (slike se nisu učitavale).
 <IfModule mod_headers.c>
 <FilesMatch "\.(html|css|js)$">
-Header set Cache-Control "no-cache"
+Header set Cache-Control "no-cache, no-transform"
 </FilesMatch>
 <FilesMatch "\.(jpg|jpeg|png|webp|svg|ico|pdf|mp4)$">
-Header set Cache-Control "max-age=86400"
+Header set Cache-Control "max-age=86400, no-transform"
 </FilesMatch>
 </IfModule>
