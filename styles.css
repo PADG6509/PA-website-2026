@@ -83,8 +83,8 @@ p.lede { font-size: 1.15rem; color: var(--ink-soft); }
 .section-border-top { border-top: 1px solid var(--line); }
 .section-alt { background: var(--paper); }
 .section-teal { background: var(--teal); color: var(--white); }
-/* Closing call-to-action band above the footer (Home, Products): 30% lower */
-.section.section-cta { padding: clamp(1.8rem, 3.2vw, 2.9rem) 0; }
+/* Closing call-to-action band above the footer (all pages with a teal band): 30% lower */
+.section.section-cta, .section.section-teal { padding: clamp(1.8rem, 3.2vw, 2.9rem) 0; }
 .section-teal .callout { color: var(--white); border-left-color: var(--amber); }
 .section-teal .btn-primary { background: var(--white); color: var(--teal-dark); }
 .section-teal .btn-primary:hover { background: var(--paper); }
