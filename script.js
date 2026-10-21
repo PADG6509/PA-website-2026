@@ -386,7 +386,8 @@
     }
 
     // PDF catalog lightbox: any button with class "catalog-btn" and a
-    // data-catalog="path/to/file.pdf" attribute opens that PDF in an overlay.
+    // data-catalog="path/to/file.pdf" attribute opens that PDF in an overlay
+    // (data-catalog-en, if present, is opened instead on the English page).
     var catalogBtns = document.querySelectorAll(".catalog-btn");
     if (catalogBtns.length) {
       var pdfLightbox = document.getElementById("pdf-lightbox");
@@ -409,7 +410,9 @@
 
       catalogBtns.forEach(function (btn) {
         btn.addEventListener("click", function () {
-          openPdf(btn.getAttribute("data-catalog"));
+          // Optional English version: data-catalog-en (used when the page is in English)
+          var enSrc = document.documentElement.getAttribute("lang") === "en" ? btn.getAttribute("data-catalog-en") : null;
+          openPdf(enSrc || btn.getAttribute("data-catalog"));
         });
       });
 
