@@ -2230,6 +2230,15 @@ body[class*="cat-"] .eq-chips a { border-radius: 8px; }
 /* Milestones: compact rows + map covers the whole segment on mobile too (v62) */
 .milestones-map .group-item { padding: 0.7rem 0; gap: 2rem; align-items: center; }
 .milestones-map .group-item p { margin: 0; }
+/* Desktop: map ends at the right edge of the page content, not the screen edge (Oct 2026) */
+@media (min-width: 761px) {
+  .milestones-map::before {
+    right: max(var(--gutter), calc((100% - var(--maxw)) / 2 + var(--gutter)));
+    background-position: right center;
+    -webkit-mask-image: linear-gradient(to left, transparent, #000 140px);
+            mask-image: linear-gradient(to left, transparent, #000 140px);
+  }
+}
 @media (max-width: 760px) {
   .milestones-map::before { background-size: auto 100%; background-position: 58% center; opacity: 0.3; }
 }
