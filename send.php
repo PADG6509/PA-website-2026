@@ -55,25 +55,63 @@ if ($name === '' || $message === '' || !filter_var($email, FILTER_VALIDATE_EMAIL
 if (preg_match_all('#https?://#i', $message) > 3) finish(true, null, $isAjax, $lang);
 
 // --- Compose ---------------------------------------------------------------
+// Sent as multipart (HTML + plain text) so that Outlook replies in HTML
+// and keeps the company signature and formatting.
 $subject = 'Upit sa sajta – ' . $name;
-$body  = "Nova poruka sa kontakt forme na www.proanalytica.com\n";
-$body .= "------------------------------------------------------\n\n";
-$body .= "Ime i prezime: $name\n";
-$body .= "E-pošta:       $email\n";
-$body .= "Organizacija:  " . ($org !== '' ? $org : '—') . "\n";
-$body .= "Jezik sajta:   " . strtoupper($lang) . "\n";
-$body .= "Vreme:         " . date('d.m.Y. H:i') . "\n\n";
-$body .= "Poruka:\n$message\n\n";
-$body .= "------------------------------------------------------\n";
-$body .= "Odgovorom na ovaj mejl odgovarate direktno pošiljaocu.\n";
+$sentAt  = date('d.m.Y. H:i');
+$orgTxt  = ($org !== '' ? $org : '—');
+
+// plain-text part (fallback)
+$text  = "Nova poruka sa kontakt forme na www.proanalytica.com\n";
+$text .= "------------------------------------------------------\n\n";
+$text .= "Ime i prezime: $name\n";
+$text .= "E-pošta:       $email\n";
+$text .= "Organizacija:  $orgTxt\n";
+$text .= "Jezik sajta:   " . strtoupper($lang) . "\n";
+$text .= "Vreme:         $sentAt\n\n";
+$text .= "Poruka:\n$message\n\n";
+$text .= "------------------------------------------------------\n";
+$text .= "Odgovorom na ovaj mejl odgovarate direktno pošiljaocu.\n";
+
+// HTML part
+function h($v) { return htmlspecialchars($v, ENT_QUOTES, 'UTF-8'); }
+$row = function ($label, $value) {
+    return '<tr><td style="padding:6px 16px 6px 0;color:#5b6770;white-space:nowrap;vertical-align:top;">' . $label . '</td>'
+         . '<td style="padding:6px 0;color:#17242c;">' . $value . '</td></tr>';
+};
+$html  = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head>';
+$html .= '<body style="margin:0;padding:0;font-family:Calibri,Arial,Helvetica,sans-serif;font-size:11pt;color:#17242c;">';
+$html .= '<div style="max-width:640px;">';
+$html .= '<p style="margin:0 0 12px 0;color:#00807F;font-weight:bold;">Nova poruka sa kontakt forme na www.proanalytica.com</p>';
+$html .= '<table cellpadding="0" cellspacing="0" style="border-collapse:collapse;font-family:Calibri,Arial,Helvetica,sans-serif;font-size:11pt;">';
+$html .= $row('Ime i prezime:', '<b>' . h($name) . '</b>');
+$html .= $row('E-pošta:', '<a href="mailto:' . h($email) . '" style="color:#00807F;">' . h($email) . '</a>');
+$html .= $row('Organizacija:', h($orgTxt));
+$html .= $row('Jezik sajta:', strtoupper($lang));
+$html .= $row('Vreme:', $sentAt);
+$html .= '</table>';
+$html .= '<p style="margin:16px 0 6px 0;color:#5b6770;">Poruka:</p>';
+$html .= '<div style="padding:12px 14px;background:#f3f2ee;border-left:3px solid #00807F;">' . nl2br(h($message)) . '</div>';
+$html .= '<p style="margin:16px 0 0 0;font-size:9pt;color:#8a949a;">Odgovorom na ovaj mejl odgovarate direktno pošiljaocu.</p>';
+$html .= '</div></body></html>';
+
+$boundary = 'pa_' . bin2hex(random_bytes(12));
+$body  = "--$boundary\r\n";
+$body .= "Content-Type: text/plain; charset=UTF-8\r\n";
+$body .= "Content-Transfer-Encoding: base64\r\n\r\n";
+$body .= chunk_split(base64_encode($text)) . "\r\n";
+$body .= "--$boundary\r\n";
+$body .= "Content-Type: text/html; charset=UTF-8\r\n";
+$body .= "Content-Transfer-Encoding: base64\r\n\r\n";
+$body .= chunk_split(base64_encode($html)) . "\r\n";
+$body .= "--$boundary--\r\n";
 
 $encSubject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
 $encFrom    = '=?UTF-8?B?' . base64_encode($FROM_NAME) . '?=';
 $headers  = "From: $encFrom <$FROM>\r\n";
 $headers .= "Reply-To: $email\r\n";
 $headers .= "MIME-Version: 1.0\r\n";
-$headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
-$headers .= "Content-Transfer-Encoding: 8bit\r\n";
+$headers .= "Content-Type: multipart/alternative; boundary=\"$boundary\"\r\n";
 $headers .= "X-Mailer: Proanalytica contact form\r\n";
 
 $sent = @mail($TO, $encSubject, $body, $headers, '-f' . $FROM);
