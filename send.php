@@ -5,7 +5,7 @@
  * Answers JSON for the JS submit; falls back to a redirect without JS.
  */
 
-$TO        = 'proanalytica@proanalytica.com';
+$TO        = 'komercijala@proanalytica.com';     // inquiries go to sales; the address shown on the site stays proanalytica@
 $FROM      = 'proanalytica@proanalytica.com';   // must be a mailbox on this domain (SPF/DKIM)
 $FROM_NAME = 'Proanalytica web sajt';
 $MIN_SECONDS = 3;                                // faster submits are treated as bots
